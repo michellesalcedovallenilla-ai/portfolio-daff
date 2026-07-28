@@ -7,10 +7,10 @@
 <title>Inktensa Daff — Sigue al Conejo Blanco</title>
 <meta name="description" content="Nadie encuentra este claro por casualidad. Sigue al Conejo Blanco.">
 
-<link rel="preload" as="image" href="assets/rabbit-hole-2x.webp?v=7" media="(min-width:900px)">
-<link rel="preload" as="image" href="assets/rabbit-hole-sm.webp?v=7" media="(min-width:431px) and (max-width:899px)">
-<link rel="preload" as="image" href="assets/rabbit-hole-xs.webp?v=7" media="(max-width:430px)">
-<link rel="preload" as="image" href="assets/plaque.webp?v=7">
+<link rel="preload" as="image" href="assets/rabbit-hole-2x.webp?v=8" media="(min-width:900px)">
+<link rel="preload" as="image" href="assets/rabbit-hole-sm.webp?v=8" media="(min-width:431px) and (max-width:899px)">
+<link rel="preload" as="image" href="assets/rabbit-hole-xs.webp?v=8" media="(max-width:430px)">
+<link rel="preload" as="image" href="assets/plaque.webp?v=8">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cinzel:wght@400;500&display=swap" rel="stylesheet">
@@ -157,7 +157,7 @@ html{ scrollbar-width:thin; scrollbar-color:#c9922e rgba(12,9,4,.55); }
    El salto de posición a 12 pasos es lo que lo hace película y no ruido pegado. */
 .grano{
   position:fixed;inset:-120px;z-index:56;pointer-events:none;
-  background:url("assets/grain35.webp?v=7") repeat;
+  background:url("assets/grain35.webp?v=8") repeat;
   background-size:256px 256px;
   opacity:.19;
   mix-blend-mode:overlay;
@@ -233,7 +233,10 @@ html{ scrollbar-width:thin; scrollbar-color:#c9922e rgba(12,9,4,.55); }
          drop-shadow(0 16px 26px rgba(0,0,0,.5))
          drop-shadow(0 0 40px rgba(226,190,110,.30));
 }
-.fig>img{width:auto;height:100%}
+/* max-width:none es imprescindible: la regla global de img limita el ancho al
+   100% mientras height:100% fija el alto, y la figura sale APLASTADA.
+   Medido antes del arreglo: el conejo a 0.91 de proporcion siendo 1.35 natural. */
+.fig>img{width:auto;height:100%;max-width:none}
 
 /* the Rabbit crossing the clearing */
 #r1{top:46%;left:0;height:60.5vh;transform-origin:50% 50%;opacity:0}
@@ -289,7 +292,7 @@ html{ scrollbar-width:thin; scrollbar-color:#c9922e rgba(12,9,4,.55); }
   margin:calc(var(--ds) * -1.70) 0 0 calc(var(--ds) * -0.86);
   transform-origin:86% 170%;
   /* la cara es la ilustración: nada de degradados CSS imitando metal */
-  background:url("assets/watch-dial.webp?v=7") center/contain no-repeat;
+  background:url("assets/watch-dial.webp?v=8") center/contain no-repeat;
   border:0;
   filter:drop-shadow(0 22px 46px rgba(0,0,0,.62)) drop-shadow(0 0 74px rgba(226,190,110,.3));
   transform:scale(var(--dial));
@@ -642,6 +645,10 @@ main.info h2,main.info h3,main.info p,main.info li,main.info .sec__eyebrow{
      igualarla o el reloj se sale de la pantalla (medido: 448px en una de 390). */
   .dial, .menu-ov .dial{--ds:min(78vw,300px)}
   .dial__caption{font-size:10px;letter-spacing:.14em}
+  /* al recuperar la proporcion (2.1) las figuras vuelven a ser anchas:
+     a 60.5vh el conejo medía 723px de ancho en una pantalla de 390 */
+  #r1{height:44vh}
+  #r2{left:auto;right:2vw;height:30vh}
   .beat#b-three{left:8%!important;width:84vw}
 
 }
@@ -721,6 +728,22 @@ input,textarea,select{ cursor:auto !important }
   footer nav a{display:inline-block;padding:14px 8px}
   .nojs-nav a{display:inline-block;padding:14px 6px}
 }
+
+/* La regla que aparta esta frase de Alice es min-width:1200px, pero Alice se
+   dibuja a TODOS los anchos. Este es su complemento exacto; el !important es
+   obligatorio porque el elemento lleva top:40vh en linea. */
+@media (max-width:1199px){ #b-aph{top:16vh!important} }
+
+/* iPhone con muesca: los controles fijos caian bajo la barra de estado */
+@supports(padding:max(0px)){
+  .watch-btn{top:max(12px, env(safe-area-inset-top))}
+  #lbX,#menuClose{top:max(10px, env(safe-area-inset-top))}
+}
+
+/* Un flick tactil recorre 2000-4000px; con 175vh el recorrido real eran 633px
+   y un solo gesto se saltaba la caida entera. Por tipo de puntero, no por
+   ancho: una tablet en horizontal sufre exactamente lo mismo. */
+@media (pointer:coarse){ .driver{height:300vh} }
 </style>
 
 <noscript><style>
@@ -755,7 +778,7 @@ input,textarea,select{ cursor:auto !important }
 
 <!-- ═══ THE MENU, ALWAYS ON SCREEN ═══ -->
 <button class="watch-btn" id="watchBtn" aria-label="Abrir el menú" aria-expanded="false" aria-controls="menuOv">
-  <img src="assets/watch-icon.webp?v=7" alt="" aria-hidden="true">
+  <img src="assets/watch-icon.webp?v=8" alt="" aria-hidden="true">
   <i class="watch-btn__hand"></i>
   <span class="watch-btn__label">Menú</span>
 </button>
@@ -779,9 +802,9 @@ input,textarea,select{ cursor:auto !important }
 <div class="stage" id="stage">
   <div class="plate-inner" id="plate">
     <picture>
-      <source media="(min-width:900px)" srcset="assets/rabbit-hole-2x.webp?v=7">
-      <source media="(min-width:431px)" srcset="assets/rabbit-hole-sm.webp?v=7">
-      <img class="plate" id="plateImg" src="assets/rabbit-hole-xs.webp?v=7"
+      <source media="(min-width:900px)" srcset="assets/rabbit-hole-2x.webp?v=8">
+      <source media="(min-width:431px)" srcset="assets/rabbit-hole-sm.webp?v=8">
+      <img class="plate" id="plateImg" src="assets/rabbit-hole-xs.webp?v=8"
            alt="Un claro dorado en el bosque que se abre a una madriguera profunda.">
     </picture>
 
@@ -823,7 +846,7 @@ input,textarea,select{ cursor:auto !important }
 
 <div class="saludo" id="saludo">
   <button class="placa" id="placa" aria-label="Sigue al Conejo Blanco — bajar a la madriguera">
-    <img src="assets/plaque.webp?v=7" alt="" aria-hidden="true">
+    <img src="assets/plaque.webp?v=8" alt="" aria-hidden="true">
   </button>
 </div>
 
@@ -1119,7 +1142,7 @@ var IMG_RATIO = 941/1672;          /* 0.5628 — width / height */
    Debajo de 900px se sirve la variante a media resolucion (-70% de peso). */
 (function(){
   var ligero = innerWidth < 900 || (matchMedia('(pointer:coarse)').matches && innerWidth < 1100);
-  var suf = (ligero ? '-m' : '') + '.webp?v=7';
+  var suf = (ligero ? '-m' : '') + '.webp?v=8';
   function cargar(){
     var l=document.querySelectorAll('img[data-base]');
     for(var i=0;i<l.length;i++){
@@ -1526,6 +1549,7 @@ function frameAt(prog){
 
 /* ────────── hotspots ────────── */
 var COARSE = matchMedia('(pointer: coarse)').matches || innerWidth<700;
+var ANCHO = matchMedia('(min-width:1200px)');   /* misma prueba que el CSS */
 var openHs=null, touchedAny=false, cardId=-1;
 
 hotspots.forEach(function(hs,i){
@@ -1634,7 +1658,13 @@ function frame(){
   /* el saludo solo vive en el claro: se va en cuanto empiezas a caer */
   if(saludo){
     var sv=(1-seg(s,0.02,0.10)).toFixed(3);
-    if(saludo._o!==sv){ saludo.style.opacity=sv; saludo._o=sv; }
+    if(saludo._o!==sv){
+      saludo.style.opacity=sv;
+      /* opacity:0 NO deja de recibir toques: sin esto la placa robaba
+         un area de 426x138 sobre TODO el contenido */
+      saludo.style.visibility = (+sv>0.02) ? 'visible' : 'hidden';
+      saludo._o=sv;
+    }
   }
 
   /* ── the Rabbit crosses the clearing ── */
@@ -1652,7 +1682,9 @@ function frame(){
   var aOp = seg(s,0.30,0.40);
   if(aliveA){
     /* biased left the whole way down so nothing she does covers the copy */
-    var ax = -34 + 4*Math.sin(5.4*s+0.6);   /* centro ~16vw: cae pegada a la izquierda */
+    /* -34vw solo tiene sentido cuando el texto se corre a la derecha,
+       y esa regla es min-width:1200px. Debajo, Alice se salia de pantalla. */
+    var ax = (ANCHO.matches ? -34 : -18) + 4*Math.sin(5.4*s+0.6);   /* centro ~16vw: cae pegada a la izquierda */
     var ar = 14*Math.sin(5.4*s+1.4);
     var hgt = 12 + 34*seg(s,0.30,0.90);
     var ex = 0;
