@@ -772,6 +772,97 @@ input,textarea,select{ cursor:auto !important }
 .wa:focus-visible{outline:2px solid var(--gold-lit);outline-offset:4px}
 @media (max-width:700px){ .wa{width:50px;height:50px} .wa svg{width:27px;height:27px} }
 @media (prefers-reduced-motion:reduce){ .wa::after{animation:none} }
+
+/* ══════════════ PERGAMINO ══════════════
+   Cada bloque de texto se apoya en una hoja de papel envejecido. El hero NO
+   se toca: esto vive solo dentro de main.info y del pie.
+   El papel va en un ::before y el texto queda por encima sin filtrar, porque
+   un filtro SVG sobre texto lo rasteriza y lo emborrona. */
+
+main.info .sec{position:relative;z-index:1;margin:34px auto;padding:52px 5vw 56px}
+main.info .sec::before{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:url("assets/papel.webp?v=1") repeat;
+  background-size:520px 520px;
+  filter:url(#rasgado);                     /* bordes organicos, no un rectangulo */
+  box-shadow:
+    inset 0 0 90px rgba(126,92,40,.34),     /* envejecido hacia los bordes */
+    inset 0 0 22px rgba(150,116,58,.20),
+    0 24px 50px rgba(0,0,0,.55),
+    0 4px 14px rgba(0,0,0,.35);
+}
+/* pliegues: dos bandas muy suaves, sin repetir, para que no parezca liso */
+main.info .sec::after{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:
+    linear-gradient(101deg, transparent 0 26%, rgba(255,252,240,.42) 27.4%,
+                    rgba(120,92,44,.10) 28.6%, transparent 30%),
+    linear-gradient(258deg, transparent 0 61%, rgba(255,252,240,.34) 62.2%,
+                    rgba(120,92,44,.09) 63.3%, transparent 65%);
+  mix-blend-mode:multiply;opacity:.55;
+}
+
+/* ── la tinta ── */
+main.info .sec, main.info .sec p, main.info .sec li{ color:#4a3617 }
+main.info h2,main.info h3,main.info p,main.info li,main.info .sec__eyebrow{
+  text-shadow:none;                         /* el halo oscuro era para fondo oscuro */
+}
+main.info .sec h2{ color:#33240d; font-weight:400 }
+main.info .sec h2 em{ color:#6d4a12 }
+main.info .sec h3{ color:#3a2a10 }
+main.info .sec p.sec__eyebrow{ color:#6b4c12; opacity:.95 }   /* p.sec gana si no se sube la especificidad */
+main.info .sec__lede{ color:#4a3617; opacity:1 }
+main.info .sec__rule{ background:linear-gradient(90deg,#a97f2a,transparent) }
+main.info .sec strong{ color:#2e2009 }
+
+/* tarjetas: una hoja algo mas tostada, como una nota grapada */
+main.info .card{
+  background:rgba(196,166,112,.20);
+  border:1px solid rgba(122,90,40,.34);
+  box-shadow:0 2px 10px rgba(90,64,24,.16), inset 0 0 30px rgba(160,124,60,.14);
+}
+main.info .fill{ color:#6d4a12; border-bottom-color:rgba(138,95,24,.55) }
+
+/* botones de filtro en tinta */
+main.info .filters button{
+  color:#5a4118; border-color:rgba(122,90,40,.45);
+  background:rgba(255,250,235,.34);
+}
+main.info .filters button[aria-pressed="true"]{
+  color:#2e2009; border-color:rgba(122,90,40,.85);
+  background:rgba(214,182,120,.55);
+}
+main.info .ig-link{ color:#674711 }
+main.info .ig-link:hover{ color:#4a3010 }
+
+/* el marco de las fotos, como si estuvieran puestas sobre la hoja */
+main.info .tile{
+  border-color:rgba(110,80,34,.45);
+  box-shadow:0 6px 16px rgba(74,52,18,.30);
+  background:rgba(180,150,100,.18);
+}
+main.info .ba__slot{ background:rgba(180,150,100,.18); border-color:rgba(110,80,34,.4) }
+
+/* el pie tambien es texto: su propia hoja */
+footer{position:relative;z-index:50}
+footer::before{
+  content:"";position:absolute;inset:10px 4vw;z-index:-1;
+  background:url("assets/papel.webp?v=1") repeat;background-size:520px 520px;
+  filter:url(#rasgado);
+  box-shadow:inset 0 0 80px rgba(126,92,40,.32), 0 18px 40px rgba(0,0,0,.5);
+}
+footer .sig{color:#33240d}
+footer .studio{color:#5a4118;opacity:1}
+footer nav a{color:#674711}
+footer nav a:hover{color:#3a2a10}
+
+@media (max-width:700px){
+  main.info .sec{padding:40px 7vw 44px;margin:22px auto}
+  main.info .sec::before{background-size:400px 400px}
+}
+@media (prefers-reduced-motion:reduce){
+  main.info .sec::before, footer::before{filter:none}   /* el filtro SVG es caro de rasterizar */
+}
 </style>
 
 <noscript><style>
@@ -794,6 +885,16 @@ input,textarea,select{ cursor:auto !important }
 </style></noscript>
 </head>
 <body>
+
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="rasgado" x="-6%" y="-4%" width="112%" height="108%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.014 0.026" numOctaves="4" seed="7" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="11" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+</svg>
 
 <a class="skip" href="#contenido">Saltar al contenido</a>
 
