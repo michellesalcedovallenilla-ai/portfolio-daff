@@ -44,3 +44,7 @@ _*.js
 
 # copias de los originales antes de hornear la luz (solo local)
 /_orig/
+
+# Material fuente: el sitio usa las versiones ya convertidas en assets/portfolio
+/asssets/
+/fotos/
