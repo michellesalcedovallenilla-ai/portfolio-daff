@@ -228,21 +228,10 @@ img{display:block;max-width:100%}
      (1280x620 through 2560x1440) without clipping off the top of the screen */
   margin:calc(var(--ds) * -1.70) 0 0 calc(var(--ds) * -0.86);
   transform-origin:86% 170%;
-  background:
-    /* glass: a sheen across the upper left, the giveaway that it is under crystal */
-    radial-gradient(ellipse 60% 46% at 30% 22%,rgba(255,255,255,.50),rgba(255,255,255,.07) 46%,transparent 70%),
-    /* guilloché: fine engine-turned rings */
-    repeating-radial-gradient(circle at 50% 50%,
-      rgba(120,88,32,.05) 0 1px, transparent 1px 4px),
-    /* ivory enamel — deliberately NOT gold, so the gold case reads against it */
-    radial-gradient(circle at 46% 38%,#fffdf7 0%,#fbf5e6 40%,#f3e8cd 72%,#e2d1aa 100%);
+  /* la cara es la ilustración: nada de degradados CSS imitando metal */
+  background:url("assets/watch-dial.png?v=1") center/contain no-repeat;
   border:0;
-  box-shadow:
-    inset 0 0 0 4px #8a6a24,                 /* the dark seat the crystal sits in */
-    inset 0 0 16px rgba(92,66,20,.32),       /* depth under the glass */
-    inset 0 -7px 18px rgba(255,250,236,.55),
-    0 22px 46px rgba(0,0,0,.62),
-    0 0 74px rgba(226,190,110,.30);
+  filter:drop-shadow(0 22px 46px rgba(0,0,0,.62)) drop-shadow(0 0 74px rgba(226,190,110,.3));
   transform:scale(var(--dial));
   opacity:var(--dial-o);
   visibility:hidden;                  /* its five buttons must not be tabbable before it blooms */
@@ -252,12 +241,6 @@ img{display:block;max-width:100%}
 .dial.bloomed{visibility:visible}
 /* the gold case is lifted straight out of the artwork, so it matches the painting exactly.
    inner edge sits at .686 of the file, so 1.46x the face diameter lines them up. */
-.dial__case{
-  position:absolute;left:50%;top:50%;width:146%;height:auto;
-  max-width:none;                      /* the global img rule would cap it at the face size */
-  transform:translate(-50%,-50%);pointer-events:none;z-index:5;
-  filter:drop-shadow(0 14px 26px rgba(0,0,0,.6));
-}
 /* minute track around the enamel */
 .dial::after{
   content:"";position:absolute;inset:9%;border-radius:50%;z-index:0;pointer-events:none;
@@ -269,12 +252,12 @@ img{display:block;max-width:100%}
 .dial__item{
   position:absolute;left:50%;top:50%;
   background:none;border:0;cursor:pointer;
-  font-family:'Cinzel',serif;font-size:clamp(11px,1.55vh,15px);font-weight:500;
+  font-family:'Cinzel',serif;font-size:clamp(9px,1.3vh,13px);font-weight:500;
   letter-spacing:.05em;color:#4a3512;text-transform:uppercase;
   white-space:nowrap;text-align:center;text-decoration:none;
   padding:4px 3px;line-height:1.15;z-index:3;
   /* radius is a fraction of the dial diameter — NOT a % of the label itself */
-  transform:translate(-50%,-50%) rotate(var(--r)) translateY(calc(var(--ds) * -0.355)) rotate(calc(var(--r) * -1));
+  transform:translate(-50%,-50%) rotate(var(--r)) translateY(calc(var(--ds) * -0.255)) rotate(calc(var(--r) * -1));
   transition:color .3s,text-shadow .3s;
 }
 .dial__item .num{display:block;font-size:1.25em;color:#8a6620;margin-bottom:1px}
@@ -291,20 +274,12 @@ img{display:block;max-width:100%}
   background:linear-gradient(90deg,#2b3550,#4b5f86 40%,#243049);
   transform:rotate(0deg);transition:transform .42s cubic-bezier(.34,1.2,.4,1)}
 .boss{
-  position:absolute;left:50%;top:50%;width:46px;height:46px;margin:-23px 0 0 -23px;
-  border-radius:50%;border:1px solid #7a5a18;cursor:pointer;z-index:4;
-  background:radial-gradient(circle at 36% 30%,#fffdf5,#e8d5a4 42%,#b8933f 78%,#7a5a18 100%);
-  box-shadow:0 2px 8px rgba(0,0,0,.55),inset 0 1px 2px rgba(255,255,255,.7);
-  display:grid;place-items:center;text-decoration:none;
+  position:absolute;left:50%;top:50%;width:13%;height:13%;
+  transform:translate(-50%,-50%);border-radius:50%;
+  background:none;border:0;cursor:pointer;z-index:4;
+  /* el remache dorado ya viene pintado en la ilustración: esto solo lo hace clicable */
 }
-.boss::after{content:"";width:13px;height:13px;border-radius:50%;
-  border:2.5px solid #5c4212;border-bottom-color:transparent;transform:rotate(45deg)}
-.boss:focus-visible{outline:2px solid var(--gold-lit);outline-offset:3px}
-.dial__caption{
-  position:absolute;left:50%;top:calc(100% + 16px);transform:translateX(-50%);
-  font-family:'Cinzel',serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--gold-lit);white-space:nowrap;opacity:.85;
-}
+.boss:focus-visible{outline:2px solid var(--gold-lit);outline-offset:4px}
 .boss-label{
   position:absolute;left:50%;top:calc(100% + 38px);transform:translateX(-50%);
   font-style:italic;font-size:14px;color:var(--gold-pale);white-space:nowrap;
@@ -317,32 +292,18 @@ img{display:block;max-width:100%}
 
 /* nada de esto puede cruzar las filas 13–25% de la lámina: ahí va el logotipo */
 .saludo{position:fixed;top:7vh;left:0;right:0;z-index:53;text-align:center;pointer-events:none}
-.saludo__1{
-  font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;
-  font-size:clamp(1.5rem,3.4vw,2.7rem);letter-spacing:.04em;
-  color:#fffaf0;
-  /* halo oscuro en varias capas: el dosel es dorado y brillante, un solo
-     text-shadow no basta para despegar el texto del fondo */
-  text-shadow:
-    0 1px 2px rgba(0,0,0,.95), 0 2px 6px rgba(0,0,0,.9),
-    0 0 14px rgba(0,0,0,.85),  0 0 30px rgba(0,0,0,.7),
-    0 0 60px rgba(0,0,0,.55),  0 0 90px rgba(226,190,110,.4);
+.placa{
+  display:block;margin:0 auto;padding:0;border:0;background:none;
+  width:clamp(260px,42vw,620px);
+  pointer-events:auto;
+  transition:transform .3s cubic-bezier(.2,.9,.25,1),filter .3s;
+  filter:drop-shadow(0 10px 26px rgba(0,0,0,.55)) drop-shadow(0 0 34px rgba(226,190,110,.4));
+  animation:placaFlota 5.5s ease-in-out infinite;
 }
-.saludo__2{
-  margin-top:10px;
-  font-family:'Cinzel',serif;font-size:clamp(10px,1.15vw,13px);
-  letter-spacing:.34em;text-transform:uppercase;color:#f7ecd0;
-  text-shadow:0 1px 2px rgba(0,0,0,.95),0 0 12px rgba(0,0,0,.9),0 0 28px rgba(0,0,0,.7);
-}
-.saludo__flecha{
-  display:block;width:1px;height:26px;margin:10px auto 0;
-  background:linear-gradient(180deg,rgba(247,236,208,.9),transparent);
-  animation:baja 2.2s ease-in-out infinite;
-}
-@keyframes baja{
-  0%,100%{transform:translateY(0);opacity:.35}
-  50%    {transform:translateY(9px);opacity:1}
-}
+.placa img{width:100%;height:auto;display:block}
+.placa:hover,.placa:focus-visible{transform:translateY(-4px) scale(1.03);filter:drop-shadow(0 16px 32px rgba(0,0,0,.6)) drop-shadow(0 0 52px rgba(255,226,150,.7))}
+.placa:focus-visible{outline:2px solid var(--gold-lit);outline-offset:10px;border-radius:14px}
+@keyframes placaFlota{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
 .beat{
   position:absolute;left:50%;transform:translateX(-50%) translateY(var(--dy,14px));
   width:min(92vw,760px);text-align:center;
@@ -713,7 +674,6 @@ input,textarea,select{ cursor:auto !important }
     <a class="dial__item" data-a="210" style="--r:210deg" href="#sobremi"><span class="num">VII</span>Sobre mí</a>
     <a class="dial__item" data-a="270" style="--r:270deg" href="#contacto"><span class="num">IX</span>Contacto</a>
     <a class="boss" href="#galeria" aria-label="Ver la galería"></a>
-    <img class="dial__case" src="assets/watch-case.png?v=4" alt="" aria-hidden="true">
     <span class="dial__caption">Elige tu hora</span>
   </nav>
 </div>
@@ -763,8 +723,9 @@ input,textarea,select{ cursor:auto !important }
 <canvas id="hadas" aria-hidden="true"></canvas>
 
 <div class="saludo" id="saludo">
-  <p class="saludo__1">Bienvenidos a mi mundo</p>
-  <p class="saludo__2">Desliza hacia abajo<span class="saludo__flecha"></span></p>
+  <button class="placa" id="placa" aria-label="Sigue al Conejo Blanco — bajar a la madriguera">
+    <img src="assets/plaque.png?v=5" alt="" aria-hidden="true">
+  </button>
 </div>
 
 <!-- ═══ CAST ═══ -->
@@ -1243,11 +1204,35 @@ document.addEventListener('click',function(e){
    listener is registered — returning here would leave the plaque, the curiosities
    and the whole dial visible but inert. */
 
+/* ────────── la placa: baja a la madriguera ────────── */
+(function(){
+  var b=$('placa'); if(!b) return;
+  b.addEventListener('click',function(){
+    var m=(driver?driver.offsetHeight:0)-innerHeight;
+    var destino=Math.max(0, m*0.55);
+    if(REDUCE){ scrollTo(0,destino); return; }
+    var desde=scrollY, t0=performance.now(), dur=1500, cancelado=false;
+    function corta(){ cancelado=true; }
+    ['wheel','touchstart','keydown','pointerdown'].forEach(function(ev){
+      addEventListener(ev,corta,{once:true,passive:true});
+    });
+    (function paso(now){
+      if(cancelado) return;
+      var t=Math.min(1,(now-t0)/dur);
+      /* acelera como una caída y frena al final */
+      var e = t<0.82 ? 0.88*Math.pow(t/0.82,2.4) : 0.88+0.12*(1-Math.pow(1-(t-0.82)/0.18,3));
+      scrollTo(0, desde+(destino-desde)*e);
+      if(t<1) requestAnimationFrame(paso);
+    })(t0);
+  });
+})();
+
 /* ────────── polvo de hadas ────────── */
 (function(){
   var cv=$('hadas'); if(!cv || REDUCE) return;
   var cx=cv.getContext('2d'), W=0,H=0,dpr=Math.min(devicePixelRatio||1,2);
   var P=[], AMB = innerWidth<760 ? 46 : 96;
+  var LUC=[], NLUC = innerWidth<760 ? 7 : 14;
 
   function resize(){
     W=innerWidth; H=innerHeight;
@@ -1266,6 +1251,17 @@ document.addEventListener('click',function(e){
   }
   for(var i=0;i<AMB;i++){ var p=nueva(Math.random()*innerWidth, Math.random()*innerHeight,false); p.vida=Math.random(); P.push(p); }
 
+  /* luciérnagas: vuelan errantes y se encienden y apagan */
+  for(var L=0;L<NLUC;L++) LUC.push({
+    x:Math.random()*innerWidth, y:Math.random()*innerHeight,
+    rumbo:Math.random()*6.283, giro:0,
+    vel:0.12+Math.random()*0.30,
+    r:2.4+Math.random()*2.4,
+    fase:Math.random()*6.283,
+    ritmo:0.006+Math.random()*0.013,     /* cada una parpadea a su aire */
+    pausa:Math.random()*400
+  });
+
   /* la estela: esto es lo que lo hace interactivo */
   var lx=0, ly=0, hayRaton=false;
   addEventListener('pointermove',function(e){
@@ -1278,6 +1274,30 @@ document.addEventListener('click',function(e){
 
   function pinta(){
     cx.clearRect(0,0,W,H);
+
+    /* ── luciérnagas ── */
+    for(var L=0;L<LUC.length;L++){
+      var f=LUC[L];
+      f.giro += (Math.random()-0.5)*0.10;
+      f.giro *= 0.92;                         /* el rumbo serpentea, no gira en redondo */
+      f.rumbo += f.giro;
+      f.x += Math.cos(f.rumbo)*f.vel;
+      f.y += Math.sin(f.rumbo)*f.vel - 0.04;  /* suben despacio */
+      if(f.x<-20) f.x=W+20; else if(f.x>W+20) f.x=-20;
+      if(f.y<-20) f.y=H+20; else if(f.y>H+20) f.y=-20;
+      f.fase += f.ritmo;
+      /* parpadeo: brilla, se apaga del todo un rato, vuelve */
+      var onda=Math.sin(f.fase);
+      var b=onda>0 ? Math.pow(onda,1.7) : 0;
+      if(b<0.015) continue;
+      var g2=cx.createRadialGradient(f.x,f.y,0,f.x,f.y,f.r*7);
+      g2.addColorStop(0,'rgba(255,250,214,'+(b*0.95)+')');
+      g2.addColorStop(0.22,'rgba(248,226,138,'+(b*0.62)+')');
+      g2.addColorStop(0.55,'rgba(214,178,74,'+(b*0.20)+')');
+      g2.addColorStop(1,'rgba(190,150,60,0)');
+      cx.fillStyle=g2; cx.beginPath(); cx.arc(f.x,f.y,f.r*7,0,6.2832); cx.fill();
+    }
+
     for(var i=P.length-1;i>=0;i--){
       var p=P[i];
       p.x+=p.vx; p.y+=p.vy; p.fase+=p.giro; p.vida-=p.mengua;
