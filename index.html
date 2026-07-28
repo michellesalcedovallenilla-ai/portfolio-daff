@@ -7,13 +7,14 @@
 <title>Inktensa Daff — Sigue al Conejo Blanco</title>
 <meta name="description" content="Nadie encuentra este claro por casualidad. Sigue al Conejo Blanco.">
 
+<link rel="preload" as="image" href="assets/rabbit-hole-2x.webp?v=6" media="(min-width:900px)">
+<link rel="preload" as="image" href="assets/rabbit-hole-sm.webp?v=6" media="(min-width:431px) and (max-width:899px)">
+<link rel="preload" as="image" href="assets/rabbit-hole-xs.webp?v=6" media="(max-width:430px)">
+<link rel="preload" as="image" href="assets/plaque.webp?v=6">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cinzel:wght@400;500&display=swap" rel="stylesheet">
 
-<link rel="preload" as="image" href="assets/rabbit-hole-2x.jpg" media="(min-width:900px)">
-<link rel="preload" as="image" href="assets/rabbit-hole-sm.jpg" media="(max-width:899px)">
-<link rel="preload" as="image" href="assets/alice-fall-1.png?v=5">
 
 <style>
 :root{
@@ -40,6 +41,33 @@ body{
 }
 img{display:block;max-width:100%}
 ::selection{background:var(--gold);color:#100d05}
+
+/* ══════════ barra de deslizamiento: oro de hada ══════════ */
+/* Firefox solo admite estos dos, asi que van primero como base decente */
+html{ scrollbar-width:thin; scrollbar-color:#c9922e rgba(12,9,4,.55); }
+
+::-webkit-scrollbar{ width:12px; height:12px; }
+::-webkit-scrollbar-track{
+  background:linear-gradient(90deg,rgba(8,6,3,.85),rgba(20,15,6,.55),rgba(8,6,3,.85));
+  border-left:1px solid rgba(201,146,46,.18);
+}
+::-webkit-scrollbar-thumb{
+  border-radius:20px;
+  border:3px solid transparent;          /* deja aire a los lados: parece una gota, no un bloque */
+  background:linear-gradient(180deg,#f6e6b4,#d8ab48 42%,#a97c22 100%);
+  background-clip:padding-box;
+  box-shadow:0 0 8px rgba(226,190,110,.55), inset 0 1px 1px rgba(255,250,230,.75);
+}
+::-webkit-scrollbar-thumb:hover{
+  background:linear-gradient(180deg,#fff6d8,#eec55f 42%,#c08f28 100%);
+  background-clip:padding-box;
+  box-shadow:0 0 16px rgba(255,226,150,.9), inset 0 1px 2px rgba(255,255,245,.9);
+}
+::-webkit-scrollbar-thumb:active{
+  background:linear-gradient(180deg,#fffdf2,#f2d98c 42%,#c08f28 100%);
+  background-clip:padding-box;
+}
+::-webkit-scrollbar-corner{ background:transparent }
 
 
 /* ══════════ THE PLATE ══════════ */
@@ -129,7 +157,7 @@ img{display:block;max-width:100%}
    El salto de posición a 12 pasos es lo que lo hace película y no ruido pegado. */
 .grano{
   position:fixed;inset:-120px;z-index:56;pointer-events:none;
-  background:url("assets/grain35.png?v=1") repeat;
+  background:url("assets/grain35.webp?v=6") repeat;
   background-size:256px 256px;
   opacity:.19;
   mix-blend-mode:overlay;
@@ -258,7 +286,7 @@ img{display:block;max-width:100%}
   margin:calc(var(--ds) * -1.70) 0 0 calc(var(--ds) * -0.86);
   transform-origin:86% 170%;
   /* la cara es la ilustración: nada de degradados CSS imitando metal */
-  background:url("assets/watch-dial.png?v=1") center/contain no-repeat;
+  background:url("assets/watch-dial.webp?v=6") center/contain no-repeat;
   border:0;
   filter:drop-shadow(0 22px 46px rgba(0,0,0,.62)) drop-shadow(0 0 74px rgba(226,190,110,.3));
   transform:scale(var(--dial));
@@ -607,9 +635,27 @@ main.info h2,main.info h3,main.info p,main.info li,main.info .sec__eyebrow{
   .hs__panel{background:rgba(10,13,7,.92)}
   /* ending tableau — they share the floor instead of stacking on top of each other.
      The dial stays welded to his watch; only its diameter changes. */
-  .dial{--ds:min(46vw,190px)}
+  /* .menu-ov .dial fija su propio --ds y gana por especificidad: hay que
+     igualarla o el reloj se sale de la pantalla (medido: 448px en una de 390). */
+  .dial, .menu-ov .dial{--ds:min(78vw,300px)}
   .dial__caption{font-size:10px;letter-spacing:.14em}
   .beat#b-three{left:8%!important;width:84vw}
+
+}
+
+/* tablet: el hueco entre 900 y 1200 no tenia ninguna regla propia */
+@media (min-width:901px) and (max-width:1199px){
+  .driver{height:185vh}
+  .sec{padding-left:5vw;padding-right:5vw}
+  .dial, .menu-ov .dial{--ds:min(56vw,380px)}
+  .cols{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+/* tablet en horizontal: mucho ancho y poca altura */
+@media (min-width:901px) and (max-height:600px){
+  .dial, .menu-ov .dial{--ds:min(42vh,300px)}
+  .driver{height:210vh}
 }
 
 /* ══════════ REDUCED MOTION — an equivalent, not a stub ══════════ */
@@ -653,6 +699,25 @@ a,button,[role="button"],summary,label,
   cursor:url("assets/cursor-flecha-mano.png?v=1") 2 2, pointer !important;
 }
 input,textarea,select{ cursor:auto !important }
+
+/* ══════════ objetivos tactiles ══════════
+   Se decide por TIPO DE PUNTERO, no por ancho: una tablet de 1024px se toca
+   con el dedo igual que un movil de 390. La segunda condicion cubre pantallas
+   pequenas aunque el navegador no declare puntero grueso.
+   El dial se dibuja a escala 0.86, asi que 44px de CSS le llegan al dedo como
+   38: por eso se piden 52 y el objetivo REAL queda en 44. */
+@media (pointer:coarse), (max-width:1199px){
+  .dial__item{min-width:52px;min-height:52px;display:grid;place-content:center;padding:6px 4px}
+  .boss{min-width:52px;min-height:52px}
+  .filters button{min-height:44px;padding-left:16px;padding-right:16px}
+  #lbX{width:48px;height:48px;font-size:26px}
+  .lb__prev,.lb__next{min-width:52px;min-height:56px}
+  #menuClose{width:48px;height:48px}
+  #hsCardX{width:44px;height:44px}
+  .hs__dot{width:48px;height:48px;margin:-24px 0 0 -24px}
+  footer nav a{display:inline-block;padding:14px 8px}
+  .nojs-nav a{display:inline-block;padding:14px 6px}
+}
 </style>
 
 <noscript><style>
@@ -687,7 +752,7 @@ input,textarea,select{ cursor:auto !important }
 
 <!-- ═══ THE MENU, ALWAYS ON SCREEN ═══ -->
 <button class="watch-btn" id="watchBtn" aria-label="Abrir el menú" aria-expanded="false" aria-controls="menuOv">
-  <img src="assets/watch-icon.png?v=4" alt="" aria-hidden="true">
+  <img src="assets/watch-icon.webp?v=6" alt="" aria-hidden="true">
   <i class="watch-btn__hand"></i>
   <span class="watch-btn__label">Menú</span>
 </button>
@@ -711,8 +776,9 @@ input,textarea,select{ cursor:auto !important }
 <div class="stage" id="stage">
   <div class="plate-inner" id="plate">
     <picture>
-      <source media="(min-width:900px)" srcset="assets/rabbit-hole-2x.jpg">
-      <img class="plate" id="plateImg" src="assets/rabbit-hole-sm.jpg"
+      <source media="(min-width:900px)" srcset="assets/rabbit-hole-2x.webp?v=6">
+      <source media="(min-width:431px)" srcset="assets/rabbit-hole-sm.webp?v=6">
+      <img class="plate" id="plateImg" src="assets/rabbit-hole-xs.webp?v=6"
            alt="Un claro dorado en el bosque que se abre a una madriguera profunda.">
     </picture>
 
@@ -754,33 +820,33 @@ input,textarea,select{ cursor:auto !important }
 
 <div class="saludo" id="saludo">
   <button class="placa" id="placa" aria-label="Sigue al Conejo Blanco — bajar a la madriguera">
-    <img src="assets/plaque.png?v=5" alt="" aria-hidden="true">
+    <img src="assets/plaque.webp?v=6" alt="" aria-hidden="true">
   </button>
 </div>
 
 <!-- ═══ CAST ═══ -->
 <div class="cast" aria-hidden="true">
-  <span class="fig" id="r1"><img data-src="assets/rabbit-1.png?v=4" alt="" decoding="async"></span>
+  <span class="fig" id="r1"><img data-base="assets/rabbit-1" alt="" decoding="async"></span>
 
-  <span class="fig alice" id="a1"><img src="assets/alice-fall-1.png?v=5" alt="" decoding="async"></span>
-  <span class="fig alice" id="a2"><img data-src="assets/alice-fall-2.png?v=5" alt="" decoding="async"></span>
-  <span class="fig alice" id="a3"><img data-src="assets/alice-fall-3.png?v=5" alt="" decoding="async"></span>
-  <span class="fig alice" id="a4"><img data-src="assets/alice-fall-4.png?v=5" alt="" decoding="async"></span>
-  <span class="fig alice" id="a5"><img data-src="assets/alice-fall-5.png?v=5" alt="" decoding="async"></span>
-  <span class="fig alice" id="a6"><img data-src="assets/alice-fall-6.png?v=5" alt="" decoding="async"></span>
-  <span class="fig alice" id="a7"><img data-src="assets/alice-fall-7.png?v=5" alt="" decoding="async"></span>
-  <span class="fig alice" id="a8"><img data-src="assets/alice-fall-8.png?v=5" alt="" decoding="async"></span>
-  <span class="fig alice" id="a9"><img data-src="assets/alice-fall-9.png?v=5" alt="" decoding="async"></span>
-  <span class="fig alice" id="a10"><img data-src="assets/alice-fall-10.png?v=5" alt="" decoding="async"></span>
+  <span class="fig alice" id="a1"><img data-base="assets/alice-fall-1" alt="" decoding="async"></span>
+  <span class="fig alice" id="a2"><img data-base="assets/alice-fall-2" alt="" decoding="async"></span>
+  <span class="fig alice" id="a3"><img data-base="assets/alice-fall-3" alt="" decoding="async"></span>
+  <span class="fig alice" id="a4"><img data-base="assets/alice-fall-4" alt="" decoding="async"></span>
+  <span class="fig alice" id="a5"><img data-base="assets/alice-fall-5" alt="" decoding="async"></span>
+  <span class="fig alice" id="a6"><img data-base="assets/alice-fall-6" alt="" decoding="async"></span>
+  <span class="fig alice" id="a7"><img data-base="assets/alice-fall-7" alt="" decoding="async"></span>
+  <span class="fig alice" id="a8"><img data-base="assets/alice-fall-8" alt="" decoding="async"></span>
+  <span class="fig alice" id="a9"><img data-base="assets/alice-fall-9" alt="" decoding="async"></span>
+  <span class="fig alice" id="a10"><img data-base="assets/alice-fall-10" alt="" decoding="async"></span>
 
-  <span class="fig" id="r2"><img data-src="assets/rabbit-2.png?v=4" alt="" decoding="async"></span>
+  <span class="fig" id="r2"><img data-base="assets/rabbit-2" alt="" decoding="async"></span>
 
 </div>
 
 <!-- Ya no cae: aterriza y te acompaña de pie. Va FUERA de .cast a propósito —
      el bucle le pone opacity:0 a .cast justo cuando ella tiene que aparecer. -->
 <span class="fig" id="apie" aria-hidden="true">
-  <img data-src="assets/alice-stand.png?v=4" alt="" decoding="async">
+  <img data-base="assets/alice-stand" alt="" decoding="async">
 </span>
 
 <!-- ═══ COPY ═══ -->
@@ -1046,11 +1112,21 @@ var hotspots=[].slice.call(document.querySelectorAll('.hs'));
 var IMG_RATIO = 941/1672;          /* 0.5628 — width / height */
 
 /* ────────── lazy images ────────── */
-addEventListener('load', function(){
-  [].slice.call(document.querySelectorAll('img[data-src]')).forEach(function(im){
-    im.src = im.getAttribute('data-src');
-  });
-});
+/* Los personajes pesan lo mismo en un movil que en un 27": no tiene sentido.
+   Debajo de 900px se sirve la variante a media resolucion (-70% de peso). */
+(function(){
+  var ligero = innerWidth < 900 || (matchMedia('(pointer:coarse)').matches && innerWidth < 1100);
+  var suf = (ligero ? '-m' : '') + '.webp?v=6';
+  function cargar(){
+    var l=document.querySelectorAll('img[data-base]');
+    for(var i=0;i<l.length;i++){
+      var b=l[i].getAttribute('data-base');
+      if(b && !l[i].getAttribute('src')) l[i].src = b + suf;
+    }
+  }
+  if(document.readyState==='loading') addEventListener('DOMContentLoaded',cargar);
+  else cargar();
+})();
 
 
 /* ────────── the always-on-screen menu ────────── */
