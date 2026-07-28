@@ -54,7 +54,7 @@ img{display:block;max-width:100%}
 .plate-inner img.plate{
   object-fit:fill;
   /* grado retro aplicado a la imagen misma — no añade ninguna capa sobre ella */
-  filter:sepia(.24) saturate(1.10) contrast(.97) brightness(1.09) hue-rotate(-4deg);
+  filter:sepia(.22) saturate(1.14) contrast(.94) brightness(1.11) hue-rotate(-5deg);
 }
 
 /* the Rabbit's gold flourish pouring into the hole mouth */
@@ -123,6 +123,35 @@ img{display:block;max-width:100%}
 .glints{position:fixed;inset:0;z-index:52;pointer-events:none;overflow:hidden}
 #hadas{position:fixed;inset:0;z-index:54;pointer-events:none;display:block}
 
+/* ── grano de 35 mm ──
+   La textura está centrada en gris medio y va en 'overlay', que deja el gris
+   neutro intacto: añade grano SIN oscurecer ni velar la ilustración.
+   El salto de posición a 12 pasos es lo que lo hace película y no ruido pegado. */
+.grano{
+  position:fixed;inset:-120px;z-index:56;pointer-events:none;
+  background:url("assets/grain35.png?v=1") repeat;
+  background-size:256px 256px;
+  opacity:.19;
+  mix-blend-mode:overlay;
+  animation:grano35 .9s steps(1) infinite;
+  will-change:background-position;
+}
+@keyframes grano35{
+  0%  {background-position:  0px    0px}
+  8.3%{background-position:-42px   38px}
+  16.6%{background-position: 61px  -29px}
+  25% {background-position:-88px  -63px}
+  33.3%{background-position: 24px   77px}
+  41.6%{background-position:-71px   14px}
+  50% {background-position: 93px   52px}
+  58.3%{background-position:-16px  -84px}
+  66.6%{background-position: 47px  -47px}
+  75% {background-position:-59px   69px}
+  83.3%{background-position: 80px   -8px}
+  91.6%{background-position:-31px  -71px}
+}
+@media (prefers-reduced-motion:reduce){ .grano{animation:none;opacity:.14} }
+
 .glint{
   position:absolute;border-radius:50%;
   background:radial-gradient(circle,#fffdf2 0%,#f4e3ae 32%,rgba(226,190,110,.5) 55%,transparent 72%);
@@ -168,7 +197,7 @@ img{display:block;max-width:100%}
 @media (prefers-reduced-motion:reduce){ .film{animation:none} }
 .fig{
   position:absolute;display:block;
-  filter:sepia(.24) saturate(1.02) contrast(.98) brightness(1.06)
+  filter:sepia(.22) saturate(1.06) contrast(.95) brightness(1.08)
          drop-shadow(0 18px 30px rgba(0,0,0,.45))
          drop-shadow(0 0 26px rgba(255,244,214,.42))
          drop-shadow(0 0 70px rgba(226,190,110,.36));
@@ -720,6 +749,7 @@ input,textarea,select{ cursor:auto !important }
 
 <div class="film" aria-hidden="true"></div>
 <div class="glints" id="glints" aria-hidden="true"></div>
+<div class="grano" aria-hidden="true"></div>
 <canvas id="hadas" aria-hidden="true"></canvas>
 
 <div class="saludo" id="saludo">
