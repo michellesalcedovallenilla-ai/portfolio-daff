@@ -1,0 +1,42 @@
+GALERÍA — CÓMO AÑADIR TUS FOTOS
+================================
+
+Pon aquí tus fotos de tatuajes con estos nombres exactos:
+
+  01.jpg   02.jpg   03.jpg   ...   hasta 12.jpg
+
+La web las detecta sola. Si un número no existe todavía, en su lugar
+aparece un marco dorado vacío — no se rompe nada.
+
+COVER-UPS (antes y después)
+---------------------------
+Para la sección de cover-ups, usa parejas:
+
+  cover-1-antes.jpg   y   cover-1-despues.jpg
+  cover-2-antes.jpg   y   cover-2-despues.jpg
+  cover-3-antes.jpg   y   cover-3-despues.jpg
+
+CONSEJOS
+--------
+- Formato: .jpg (o .png si prefieres)
+- Tamaño ideal: entre 1000 y 1600 px de ancho
+- Cuadradas o verticales quedan mejor en la cuadrícula
+- Pesa las fotos antes de subirlas: si cada una pesa 5 MB la web irá lenta.
+  Con 300–600 KB por foto va perfecto.
+
+TÍTULOS Y CATEGORÍAS
+--------------------
+Los títulos y las categorías de cada foto se editan en index.html.
+Busca la línea que pone:
+
+  var GALERIA = [
+
+Ahí verás una lista como esta, una línea por foto:
+
+  {f:'01.jpg', t:'Picaflor a color',  c:'flores'},
+
+  f = nombre del archivo
+  t = título que se muestra
+  c = categoría: 'flores', 'color', 'cover' o 'otros'
+
+Cambia los títulos por los tuyos y listo.

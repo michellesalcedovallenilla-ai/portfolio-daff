@@ -1,0 +1,22 @@
+# Material de trabajo: se queda en local, el sitio publicado no lo necesita.
+# (Ojo: esto significa que los originales NO tienen copia en GitHub.)
+/CAIDA/
+/*.png
+/*.jpg
+/*.jpeg
+/*.webp
+
+# Variantes que la web ya no referencia
+/assets/hero-forest.png
+/assets/plaque.png
+/assets/rabbit-3.png
+/assets/rabbit-4.png
+/assets/rabbit-5.png
+/assets/rabbit-hole.png
+
+# Basura del sistema
+Thumbs.db
+desktop.ini
+.DS_Store
+_*.png
+_*.js
