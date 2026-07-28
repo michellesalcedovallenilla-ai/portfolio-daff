@@ -41,3 +41,6 @@ desktop.ini
 .DS_Store
 _*.png
 _*.js
+
+# copias de los originales antes de hornear la luz (solo local)
+/_orig/

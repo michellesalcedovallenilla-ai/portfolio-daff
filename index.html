@@ -7,10 +7,10 @@
 <title>Inktensa Daff — Sigue al Conejo Blanco</title>
 <meta name="description" content="Nadie encuentra este claro por casualidad. Sigue al Conejo Blanco.">
 
-<link rel="preload" as="image" href="assets/rabbit-hole-2x.webp?v=6" media="(min-width:900px)">
-<link rel="preload" as="image" href="assets/rabbit-hole-sm.webp?v=6" media="(min-width:431px) and (max-width:899px)">
-<link rel="preload" as="image" href="assets/rabbit-hole-xs.webp?v=6" media="(max-width:430px)">
-<link rel="preload" as="image" href="assets/plaque.webp?v=6">
+<link rel="preload" as="image" href="assets/rabbit-hole-2x.webp?v=7" media="(min-width:900px)">
+<link rel="preload" as="image" href="assets/rabbit-hole-sm.webp?v=7" media="(min-width:431px) and (max-width:899px)">
+<link rel="preload" as="image" href="assets/rabbit-hole-xs.webp?v=7" media="(max-width:430px)">
+<link rel="preload" as="image" href="assets/plaque.webp?v=7">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cinzel:wght@400;500&display=swap" rel="stylesheet">
@@ -157,7 +157,7 @@ html{ scrollbar-width:thin; scrollbar-color:#c9922e rgba(12,9,4,.55); }
    El salto de posición a 12 pasos es lo que lo hace película y no ruido pegado. */
 .grano{
   position:fixed;inset:-120px;z-index:56;pointer-events:none;
-  background:url("assets/grain35.webp?v=6") repeat;
+  background:url("assets/grain35.webp?v=7") repeat;
   background-size:256px 256px;
   opacity:.19;
   mix-blend-mode:overlay;
@@ -225,17 +225,20 @@ html{ scrollbar-width:thin; scrollbar-color:#c9922e rgba(12,9,4,.55); }
 @media (prefers-reduced-motion:reduce){ .film{animation:none} }
 .fig{
   position:absolute;display:block;
-  filter:sepia(.22) saturate(1.06) contrast(.95) brightness(1.08)
-         drop-shadow(0 18px 30px rgba(0,0,0,.45))
-         drop-shadow(0 0 26px rgba(255,244,214,.42))
-         drop-shadow(0 0 70px rgba(226,190,110,.36));
+  /* La luz del tunel y el filo dorado van HORNEADOS en el propio PNG: un
+     filtro global no puede simular luz direccional sobre un dibujo plano,
+     y era eso lo que hacia que parecieran pegatinas. Aqui solo queda la
+     sombra que los separa del fondo. */
+  filter:sepia(.10) saturate(1.04) contrast(1.02)
+         drop-shadow(0 16px 26px rgba(0,0,0,.5))
+         drop-shadow(0 0 40px rgba(226,190,110,.30));
 }
 .fig>img{width:auto;height:100%}
 
 /* the Rabbit crossing the clearing */
 #r1{top:46%;left:0;height:60.5vh;transform-origin:50% 50%;opacity:0}
 /* the Rabbit falling ahead of you */
-#r2{left:62%;top:0;height:32vh;opacity:0}   /* driven by transform, never by `top` */
+#r2{left:62%;top:0;height:46vh;opacity:0}   /* su cuerpo es el 62% del marco: 46vh -> 28vh reales */   /* driven by transform, never by `top` */
 #r2>img{filter:blur(.9px)}
 
 /* Alice, falling */
@@ -286,7 +289,7 @@ html{ scrollbar-width:thin; scrollbar-color:#c9922e rgba(12,9,4,.55); }
   margin:calc(var(--ds) * -1.70) 0 0 calc(var(--ds) * -0.86);
   transform-origin:86% 170%;
   /* la cara es la ilustración: nada de degradados CSS imitando metal */
-  background:url("assets/watch-dial.webp?v=6") center/contain no-repeat;
+  background:url("assets/watch-dial.webp?v=7") center/contain no-repeat;
   border:0;
   filter:drop-shadow(0 22px 46px rgba(0,0,0,.62)) drop-shadow(0 0 74px rgba(226,190,110,.3));
   transform:scale(var(--dial));
@@ -752,7 +755,7 @@ input,textarea,select{ cursor:auto !important }
 
 <!-- ═══ THE MENU, ALWAYS ON SCREEN ═══ -->
 <button class="watch-btn" id="watchBtn" aria-label="Abrir el menú" aria-expanded="false" aria-controls="menuOv">
-  <img src="assets/watch-icon.webp?v=6" alt="" aria-hidden="true">
+  <img src="assets/watch-icon.webp?v=7" alt="" aria-hidden="true">
   <i class="watch-btn__hand"></i>
   <span class="watch-btn__label">Menú</span>
 </button>
@@ -776,9 +779,9 @@ input,textarea,select{ cursor:auto !important }
 <div class="stage" id="stage">
   <div class="plate-inner" id="plate">
     <picture>
-      <source media="(min-width:900px)" srcset="assets/rabbit-hole-2x.webp?v=6">
-      <source media="(min-width:431px)" srcset="assets/rabbit-hole-sm.webp?v=6">
-      <img class="plate" id="plateImg" src="assets/rabbit-hole-xs.webp?v=6"
+      <source media="(min-width:900px)" srcset="assets/rabbit-hole-2x.webp?v=7">
+      <source media="(min-width:431px)" srcset="assets/rabbit-hole-sm.webp?v=7">
+      <img class="plate" id="plateImg" src="assets/rabbit-hole-xs.webp?v=7"
            alt="Un claro dorado en el bosque que se abre a una madriguera profunda.">
     </picture>
 
@@ -820,7 +823,7 @@ input,textarea,select{ cursor:auto !important }
 
 <div class="saludo" id="saludo">
   <button class="placa" id="placa" aria-label="Sigue al Conejo Blanco — bajar a la madriguera">
-    <img src="assets/plaque.webp?v=6" alt="" aria-hidden="true">
+    <img src="assets/plaque.webp?v=7" alt="" aria-hidden="true">
   </button>
 </div>
 
@@ -1116,7 +1119,7 @@ var IMG_RATIO = 941/1672;          /* 0.5628 — width / height */
    Debajo de 900px se sirve la variante a media resolucion (-70% de peso). */
 (function(){
   var ligero = innerWidth < 900 || (matchMedia('(pointer:coarse)').matches && innerWidth < 1100);
-  var suf = (ligero ? '-m' : '') + '.webp?v=6';
+  var suf = (ligero ? '-m' : '') + '.webp?v=7';
   function cargar(){
     var l=document.querySelectorAll('img[data-base]');
     for(var i=0;i<l.length;i++){
