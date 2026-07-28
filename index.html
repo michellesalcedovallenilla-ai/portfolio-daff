@@ -744,6 +744,34 @@ input,textarea,select{ cursor:auto !important }
    y un solo gesto se saltaba la caida entera. Por tipo de puntero, no por
    ancho: una tablet en horizontal sufre exactamente lo mismo. */
 @media (pointer:coarse){ .driver{height:300vh} }
+
+/* ── WhatsApp flotante: oro, para agendar ── */
+.wa{
+  position:fixed; right:max(16px, env(safe-area-inset-right));
+  bottom:max(16px, env(safe-area-inset-bottom));
+  width:56px; height:56px; border-radius:50%;
+  z-index:88; display:grid; place-items:center;
+  background:radial-gradient(circle at 36% 30%,#fdf3d6,#e0bb63 46%,#a9801f 100%);
+  box-shadow:0 6px 18px rgba(0,0,0,.55), 0 0 0 1px rgba(255,240,200,.5) inset,
+             0 0 26px rgba(226,190,110,.45);
+  transition:transform .28s cubic-bezier(.2,.9,.25,1), box-shadow .28s;
+}
+.wa svg{width:30px;height:30px;fill:#2a1e06}
+.wa::after{                                   /* halo que respira, como el resto del sitio */
+  content:"";position:absolute;inset:-6px;border-radius:50%;
+  border:1px solid rgba(226,190,110,.5);
+  animation:waLatido 2.8s ease-in-out infinite;pointer-events:none;
+}
+@keyframes waLatido{
+  0%,100%{transform:scale(1);opacity:.55}
+  50%    {transform:scale(1.16);opacity:0}
+}
+.wa:hover,.wa:focus-visible{transform:translateY(-3px) scale(1.06);
+  box-shadow:0 10px 26px rgba(0,0,0,.6), 0 0 0 1px rgba(255,250,230,.7) inset,
+             0 0 40px rgba(255,220,140,.7)}
+.wa:focus-visible{outline:2px solid var(--gold-lit);outline-offset:4px}
+@media (max-width:700px){ .wa{width:50px;height:50px} .wa svg{width:27px;height:27px} }
+@media (prefers-reduced-motion:reduce){ .wa::after{animation:none} }
 </style>
 
 <noscript><style>
@@ -841,6 +869,19 @@ input,textarea,select{ cursor:auto !important }
 
 <div class="film" aria-hidden="true"></div>
 <div class="glints" id="glints" aria-hidden="true"></div>
+<a class="wa" href="https://wa.me/message/JVL5VHXXXCPQJ1" target="_blank" rel="noopener noreferrer"
+   aria-label="Agendar por WhatsApp">
+  <svg viewBox="0 0 32 32" aria-hidden="true">
+    <path d="M16 3.2C9 3.2 3.3 8.9 3.3 15.9c0 2.3.6 4.4 1.7 6.3L3.2 28.8l6.8-1.8c1.8 1 3.9 1.5 6 1.5
+             7 0 12.7-5.7 12.7-12.7S23 3.2 16 3.2zm0 23.1c-1.9 0-3.7-.5-5.3-1.4l-.4-.2-3.9 1 1-3.8-.2-.4
+             c-1-1.6-1.5-3.5-1.5-5.5C5.7 10.2 10.3 5.6 16 5.6s10.3 4.6 10.3 10.3S21.7 26.3 16 26.3z"/>
+    <path d="M21.7 18.8c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1
+             -.3-.2-1.3-.5-2.5-1.6-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.4.5-.6.1-.2.2-.3.3-.5
+             .1-.2 0-.4 0-.5s-.7-1.6-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4
+             s1.1 2.8 1.2 3c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4
+             .3-.7.3-1.3.2-1.4-.1-.2-.3-.2-.5-.4z"/>
+  </svg>
+</a>
 <div class="grano" aria-hidden="true"></div>
 <canvas id="hadas" aria-hidden="true"></canvas>
 
@@ -884,7 +925,7 @@ input,textarea,select{ cursor:auto !important }
 
 
 
-  <div class="beat" id="b-aph" style="top:40vh"><p class="aphorism">Aquí abajo nada combina, y todo encaja.</p></div>
+  <div class="beat" id="b-aph" style="top:40vh"><p class="aphorism">Yo pintaría todo a color, para nunca más ver la vida en blanco y negro.</p></div>
 
 </div>
 
@@ -913,16 +954,15 @@ input,textarea,select{ cursor:auto !important }
   <!-- ─── I · LA GALERÍA ─── -->
   <section class="sec" id="galeria">
     <p class="sec__eyebrow">I · La Galería</p>
-    <h2>Cada tatuaje empieza siendo <em>una idea suelta</em>.</h2>
-    <p class="sec__lede">Flores, aves, serpientes, color. Piezas pensadas para una sola piel —
-      nunca dos veces el mismo diseño.</p>
+    <h2>¡Dime tu idea!</h2>
+    <p class="sec__lede">¿Flores, aves, insectos? Soy especialista en botánica. Piezas pensadas
+      para una sola piel — nunca dos veces el mismo diseño.</p>
     <div class="sec__rule"></div>
 
     <div class="filters" id="filtros" role="group" aria-label="Filtrar la galería">
       <button data-c="todo" aria-pressed="true">Todo</button>
-      <button data-c="flores" aria-pressed="false">Flores y naturaleza</button>
-      <button data-c="color" aria-pressed="false">Color</button>
-      <button data-c="cover" aria-pressed="false">Cover-ups</button>
+      <button data-c="flores" aria-pressed="false">Botánica</button>
+      <button data-c="fauna" aria-pressed="false">Aves y fauna</button>
     </div>
 
     <div class="grid" id="grid"></div>
@@ -975,7 +1015,7 @@ input,textarea,select{ cursor:auto !important }
   <!-- ─── V · AGENDAR CITA ─── -->
   <section class="sec" id="citas">
     <p class="sec__eyebrow">V · Agendar cita</p>
-    <h2>Son las cinco. <em>Justo a tiempo.</em></h2>
+    <h2>Llegaste <em>justo a tiempo</em>.</h2>
     <p class="sec__lede">Escríbeme y lo vemos con calma. No hay prisa: prefiero pocas piezas
       y bien pensadas.</p>
     <div class="sec__rule"></div>
@@ -992,21 +1032,22 @@ input,textarea,select{ cursor:auto !important }
       </div>
       <div class="card">
         <h3>Cómo reservo</h3>
+        <p style="margin-bottom:12px">Primero cotizamos. Necesito que me mandes:</p>
         <ol>
-          <li>Me escribes por Instagram o por correo.</li>
-          <li>Hablamos del diseño y te paso presupuesto.</li>
-          <li>Se aparta el día con una seña de <span class="fill">[completar importe]</span>,
-            que se descuenta del total.</li>
-          <li>El diseño lo ves antes de la cita, no el mismo día.</li>
+          <li>Una referencia — imagen, captura, dibujo o boceto.</li>
+          <li>La zona del cuerpo.</li>
+          <li>De cuántos centímetros, aproximado.</li>
+          <li>Si lo quieres a color o en grises.</li>
         </ol>
+        <p style="margin-top:14px">Si te parece bien el valor de mi trabajo, agendamos el día que
+          te acomode abonando <strong>$20.000</strong> por transferencia.</p>
       </div>
       <div class="card">
-        <h3>Precios</h3>
-        <p>El precio depende del tamaño, el detalle y la zona. Trabajo
-          <span class="fill">[por sesión / por hora / por pieza — completar]</span>,
-          con un mínimo de <span class="fill">[completar]</span>.</p>
-        <p style="margin-top:12px">Estudio: <span class="fill">[dirección — completar]</span><br>
-          Horario: <span class="fill">[días y horas — completar]</span></p>
+        <h3>Cuándo se abre la agenda</h3>
+        <p>La próxima apertura es el <strong>domingo 2 de agosto a las 12:00 h</strong>,
+          y es para agendar el mes de <strong>octubre</strong>.</p>
+        <p style="margin-top:12px">El precio depende del tamaño, el detalle y la zona; te lo paso
+          al cotizar. La seña de $20.000 se descuenta del total.</p>
       </div>
     </div>
   </section>
@@ -1021,30 +1062,36 @@ input,textarea,select{ cursor:auto !important }
 
     <div class="cols">
       <div class="card">
-        <h3>Cuidados — los primeros días</h3>
+        <h3>Cuidados — después de tatuarte</h3>
         <ol>
-          <li>Deja el vendaje el tiempo que te indique al terminar.</li>
-          <li>Lava con agua tibia y jabón neutro, con la mano limpia. Sin frotar.</li>
-          <li>Seca dando toques con papel limpio, nunca con toalla.</li>
-          <li>Crema en capa fina, solo la justa para que la piel no tire.</li>
+          <li>El primer día usa film (alusa) o tegaderme, el mismo día que te tatuaste.</li>
+          <li>Al segundo día saca el parche, ojalá en la mañana, con las manos limpias y bajo
+            el agua, lentamente y con paciencia.</li>
+          <li>Al sacarlo limpia la zona con jabón hipoalergénico y agua, más una toalla nova
+            — <strong>nunca una toalla de uso común</strong>. Pasa con cuidado, no fuerte.</li>
+          <li>Después de esa limpieza, que debes hacer mínimo una vez al día, coloca tu cremita
+            de tatuaje 2 o 3 veces como máximo. Sin exagerar: que se vea transparente.</li>
         </ol>
+        <p style="margin-top:14px">Los días de cicatrización varían según la persona: hay quien
+          cicatriza en una semana y quien tarda dos. Sabrás que terminó cuando tu piel esté
+          <strong>mate, sin cueritos y no brillante</strong>.</p>
+        <p style="margin-top:10px;font-style:italic;color:var(--gold-lit)">¡Espero cicatrice bien!</p>
       </div>
       <div class="card">
-        <h3>Cuidados — las primeras semanas</h3>
+        <h3>No debes — durante la cicatrización</h3>
         <ul>
-          <li>Nada de piscina, mar, sauna ni bañera.</li>
-          <li>Sol directo no, y después protección alta de por vida: el sol es lo que más apaga el color.</li>
-          <li>Va a picar y a soltar costra. No rascar, no arrancar.</li>
-          <li>Ropa holgada sobre la zona.</li>
+          <li>Tomar alcohol.</li>
+          <li>Hacer ejercicio.</li>
+          <li>Fumar mucho, ni tomar mucho café.</li>
+          <li>Piscinas ni aguas que no sean de la ducha.</li>
+          <li>Colocar nada con alcohol sobre el tatuaje: cremas, perfumes, desodorantes,
+            shampoo, acondicionador.</li>
+          <li>Rascarte el tatuaje.</li>
+          <li>Tener contacto con mascotas.</li>
+          <li>Usar ropa con textura que pueda sacarte más costra.</li>
+          <li>Retirar la costra o el cuerito: debe salir solo, o sacarás más pigmento
+            del que debiese salir.</li>
         </ul>
-      </div>
-      <div class="card">
-        <h3>Cuándo escribirme</h3>
-        <p>Si algo no te cuadra —enrojecimiento que crece, calor, dolor que aumenta en vez de
-          bajar— mándame una foto y lo miramos. Ante cualquier signo de infección, acude a un
-          profesional sanitario: un tatuaje se retoca, la salud no.</p>
-        <p style="margin-top:12px">Los retoques se valoran caso por caso
-          <span class="fill">[política de retoques — completar]</span>.</p>
       </div>
     </div>
   </section>
@@ -1052,12 +1099,17 @@ input,textarea,select{ cursor:auto !important }
   <!-- ─── IX · CONTACTO ─── -->
   <section class="sec" id="contacto">
     <p class="sec__eyebrow">IX · Contacto</p>
-    <p class="sec__lede">La vía más rápida es Instagram — ahí respondo yo.</p>
+    <p class="sec__lede">Instagram y TikTok son donde subo el contenido. Por WhatsApp solo agendo.</p>
     <div class="sec__rule"></div>
     <div class="cols">
       <div class="card">
         <h3>Instagram</h3>
         <p><a class="ig-link" style="margin-top:8px" href="https://www.instagram.com/inktensa.daff/"
+              target="_blank" rel="noopener noreferrer">@inktensa.daff</a></p>
+      </div>
+      <div class="card">
+        <h3>TikTok</h3>
+        <p><a class="ig-link" style="margin-top:8px" href="https://www.tiktok.com/@inktensa.daff"
               target="_blank" rel="noopener noreferrer">@inktensa.daff</a></p>
       </div>
       <div class="card">
@@ -1099,24 +1151,27 @@ input,textarea,select{ cursor:auto !important }
    Si el archivo aún no existe, sale un marco dorado vacío. No se rompe nada.
    ══════════════════════════════════════════════════════════════ */
 var GALERIA = [
-  {f:'01.jpg', t:'Picaflor a color',            c:'flores'},
-  {f:'02.jpg', t:'Flor de iris',                c:'flores'},
-  {f:'03.jpg', t:'Cover-up floral',             c:'cover'},
-  {f:'04.jpg', t:'Gerberas y lilium',           c:'flores'},
-  {f:'05.jpg', t:'Serpiente',                   c:'otros'},
-  {f:'06.jpg', t:'Plato de porcelana',          c:'otros'},
-  {f:'07.jpg', t:'Restauración de color',       c:'cover'},
-  {f:'08.jpg', t:'Ramo a color',                c:'color'},
-  {f:'09.jpg', t:'Ave y follaje',               c:'flores'},
-  {f:'10.jpg', t:'Pieza a color',               c:'color'},
-  {f:'11.jpg', t:'Cover-up de brazo',           c:'cover'},
-  {f:'12.jpg', t:'Trabajo reciente',            c:'color'}
+  {f:'p01', t:'Flores silvestres',        c:'flores'},
+  {f:'p02', t:'Girasol y rosa',           c:'flores'},
+  {f:'p03', t:'Frutillas y flores',       c:'flores'},
+  {f:'p04', t:'Cerezo en flor',           c:'flores'},
+  {f:'p05', t:'Conejo entre flores',      c:'fauna'},
+  {f:'p06', t:'Picaflor',                 c:'fauna'},
+  {f:'p07', t:'Orquídeas',                c:'flores'},
+  {f:'p08', t:'Enredadera de color',      c:'flores'},
+  {f:'p09', t:'Lirios',                   c:'flores'},
+  {f:'p10', t:'Columna florida',          c:'flores'},
+  {f:'p11', t:'Amapola y campanillas',    c:'flores'},
+  {f:'p12', t:'Peonía azul y rosas',      c:'flores'},
+  {f:'p13', t:'Buganvilla',               c:'flores'},
+  {f:'p14', t:'Ramo en el antebrazo',     c:'flores'},
+  {f:'p15', t:'Ave y hojas de otoño',     c:'fauna'},
+  {f:'p16', t:'Peonía morada',            c:'flores'}
 ];
-/* parejas antes / después para la sección de cover-ups */
+/* parejas antes / después */
 var COVERS = [
-  {a:'cover-1-antes.jpg', b:'cover-1-despues.jpg', t:'Cover-up floral'},
-  {a:'cover-2-antes.jpg', b:'cover-2-despues.jpg', t:'Restauración de color'},
-  {a:'cover-3-antes.jpg', b:'cover-3-despues.jpg', t:'Rediseño sobre trazo antiguo'}
+  {a:'ba1-antes', b:'ba1-despues', t:'Cover-up sobre geométricos'},
+  {a:'ba2-antes', b:'ba2-despues', t:'De la plantilla a la piel'}
 ];
 
 (function(){
@@ -1251,7 +1306,7 @@ function buildGallery(){
   var g=$('grid'); if(!g) return;
   g.innerHTML = GALERIA.map(function(it,i){
     return '<button class="tile" data-c="'+it.c+'" data-i="'+i+'">'+
-      '<img src="assets/portfolio/'+it.f+'" alt="'+it.t+'" loading="lazy" decoding="async">'+
+      '<img src="assets/portfolio/'+it.f+'-t.webp'+'" alt="'+it.t+'" loading="lazy" decoding="async">'+
       PH+'<span class="tile__cap">'+it.t+'</span></button>';
   }).join('');
   [].slice.call(g.querySelectorAll('.tile')).forEach(function(tile){
@@ -1269,9 +1324,9 @@ function buildCovers(){
   w.innerHTML = COVERS.map(function(c){
     return '<div class="ba__pair"><div class="ba__imgs">'+
       '<span class="ba__slot"><span class="tag">Antes</span>'+
-        '<img src="assets/portfolio/'+c.a+'" alt="Antes — '+c.t+'" loading="lazy">'+PH+'</span>'+
+        '<img src="assets/portfolio/'+c.a+'.webp'+'" alt="Antes — '+c.t+'" loading="lazy">'+PH+'</span>'+
       '<span class="ba__slot"><span class="tag">Después</span>'+
-        '<img src="assets/portfolio/'+c.b+'" alt="Después — '+c.t+'" loading="lazy">'+PH+'</span>'+
+        '<img src="assets/portfolio/'+c.b+'.webp'+'" alt="Después — '+c.t+'" loading="lazy">'+PH+'</span>'+
       '</div><p style="margin-top:11px;font-size:.95rem;opacity:.8;font-style:italic">'+c.t+'</p></div>';
   }).join('');
   [].slice.call(w.querySelectorAll('.ba__slot')).forEach(function(sl){
@@ -1289,9 +1344,10 @@ function openLb(i){
 }
 function paintLb(){
   var it=GALERIA[shown[lbIdx]]; if(!it) return;
-  lbImg.src='assets/portfolio/'+it.f; lbImg.alt=it.t; lbCap.textContent=it.t;
+  lbImg.src='assets/portfolio/'+it.f+'.webp';   /* la grande, no la miniatura -t */
+  lbImg.alt=it.t; lbCap.textContent=it.t;
 }
-function closeLb(){ lb.classList.remove('open'); lbImg.src=''; }
+function closeLb(){ lb.classList.remove('open'); lbImg.removeAttribute('src'); }   /* src='' hace que el navegador se pida a si mismo */
 function stepLb(d){ if(!shown.length) return; lbIdx=(lbIdx+d+shown.length)%shown.length; paintLb(); }
 $('lbX').addEventListener('click',closeLb);
 $('lbPrev').addEventListener('click',function(){ stepLb(-1); });
