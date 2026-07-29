@@ -48,3 +48,7 @@ _*.js
 # Material fuente: el sitio usa las versiones ya convertidas en assets/portfolio
 /asssets/
 /fotos/
+
+# Fuentes: los ZIP originales se quedan en local; en el sitio van los .woff2
+/_fuentes/
+/assets/_hoja-original.png

@@ -898,6 +898,53 @@ footer .studio{font-family:'EB Garamond',Georgia,serif}
 
 /* la caligrafica necesita algo mas de aire entre lineas para no apelmazarse */
 main.info .sec h2{margin-bottom:4px}
+
+/* ══════════ tipografias propias ══════════
+   Baycat queda FUERA: le faltan tildes, enye, signos de apertura y digitos.
+   Nohubotiempo queda FUERA: su licencia dice uso personal, y esto es
+   un portfolio profesional. */
+@font-face{font-family:'Sierra';src:url('assets/fuentes/sierra.woff2') format('woff2');
+  font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Sierra SC';src:url('assets/fuentes/sierra-sc.woff2') format('woff2');
+  font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'FriendsZ';src:url('assets/fuentes/friendsz.woff2') format('woff2');
+  font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Vainilla';src:url('assets/fuentes/vainilla.woff2') format('woff2');
+  font-weight:400;font-style:normal;font-display:swap}
+
+main.info .sec h2{
+  font-family:'Sierra','Petit Formal Script',cursive;
+  font-size:clamp(2.1rem,4.8vw,3.4rem);line-height:1.22;letter-spacing:.01em;
+}
+main.info .sec h2 em{font-style:normal;font-family:inherit}
+main.info .sec h3{
+  font-family:'FriendsZ',cursive;font-size:1.16rem;letter-spacing:.05em;
+}
+main.info .sec p.sec__eyebrow{
+  font-family:'Sierra SC','Cinzel',serif;font-size:14px;letter-spacing:.16em;
+}
+main.info .filters button{font-family:'Vainilla',cursive;letter-spacing:.07em;font-size:14px}
+footer .sig{font-family:'Sierra',cursive;font-size:1.9rem}
+
+/* ══════════ la hoja, con su borde deckle ══════════
+   border-image de 9 zonas: las esquinas (con el relieve floral) NO se estiran
+   y el centro se rellena, asi que la hoja vale para secciones de cualquier alto.
+   Ya no hace falta el filtro SVG: el borde rasgado es real, viene en la imagen. */
+main.info .sec::before{
+  background:none;
+  filter:none;
+  border-style:solid;
+  border-width:clamp(20px,3.4vw,42px);
+  border-image:url('assets/hoja.webp?v=1') 132 fill round;
+  box-shadow:0 24px 50px rgba(0,0,0,.55), 0 4px 14px rgba(0,0,0,.3);
+  inset:0;
+}
+footer::before{
+  background:none;filter:none;
+  border-style:solid;border-width:clamp(18px,3vw,36px);
+  border-image:url('assets/hoja.webp?v=1') 132 fill round;
+  box-shadow:0 18px 40px rgba(0,0,0,.5);
+}
 </style>
 
 <noscript><style>
