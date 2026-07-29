@@ -550,22 +550,34 @@ main.info h2,main.info h3,main.info p,main.info li,main.info .sec__eyebrow{
 .filters button[aria-pressed="true"]{background:rgba(201,146,46,.16);border-color:var(--gold);color:var(--gold-lit);opacity:1}
 .filters button:focus-visible{outline:2px solid var(--gold-lit);outline-offset:2px}
 
-.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));margin-top:26px}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));margin-top:26px}
+@media(max-width:820px){ .grid{grid-template-columns:repeat(2,1fr);gap:11px} }
+@media(max-width:430px){ .grid{grid-template-columns:repeat(2,1fr);gap:9px} }
 .tile{
   position:relative;aspect-ratio:4/5;overflow:hidden;cursor:pointer;
   border:1px solid rgba(201,146,46,.40);background:rgba(9,7,3,.28);padding:0;
-  transition:transform .35s cubic-bezier(.2,.9,.25,1),border-color .35s;
+  transition:transform .45s cubic-bezier(.2,.9,.25,1),border-color .35s,box-shadow .45s;
+  box-shadow:0 3px 10px rgba(60,42,14,.24);
 }
-.tile:hover,.tile:focus-visible{transform:translateY(-5px);border-color:var(--gold-lit)}
-.tile:focus-visible{outline:2px solid var(--gold-lit);outline-offset:3px}
-.tile img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
-.tile:hover img{transform:scale(1.05)}
+.tile img{transition:transform .7s cubic-bezier(.2,.9,.25,1),filter .5s}
+.tile:hover img,.tile:focus-visible img{transform:scale(1.09)}
+.tile:hover,.tile:focus-visible{transform:translateY(-6px);border-color:var(--gold-lit);
+  box-shadow:0 14px 30px rgba(40,26,8,.42)}
+.tile:active{transform:translateY(-2px) scale(.985)}     /* respuesta al dedo */
+/* el titulo ya no vive solo en el hover: en tactil no hay hover */
 .tile__cap{
-  position:absolute;left:0;right:0;bottom:0;padding:26px 14px 12px;text-align:left;
-  background:linear-gradient(180deg,transparent,rgba(6,5,2,.9));
-  font-size:.95rem;color:var(--cream);opacity:0;transition:opacity .3s;
+  position:absolute;left:0;right:0;bottom:0;padding:26px 10px 9px;
+  font-size:12.5px;color:#fff8e6;text-align:center;pointer-events:none;
+  background:linear-gradient(180deg,transparent,rgba(20,13,4,.82));
+  transform:translateY(0);transition:opacity .4s;
 }
-.tile:hover .tile__cap,.tile:focus-visible .tile__cap{opacity:1}
+@media(hover:hover){
+  .tile__cap{opacity:0}
+  .tile:hover .tile__cap,.tile:focus-visible .tile__cap{opacity:1}
+}
+@media(max-width:820px){ .tile__cap{font-size:11px;padding:20px 6px 7px} }
+.tile:focus-visible{outline:2px solid var(--gold-lit);outline-offset:3px}
+.tile img{width:100%;height:100%;object-fit:cover;display:block}
 /* empty slot — an ornament, never a broken image */
 .tile.empty{cursor:default;border-style:dashed;border-color:rgba(201,146,46,.26)}
 .tile.empty:hover{transform:none}
@@ -900,17 +912,29 @@ footer .studio{font-family:'EB Garamond',Georgia,serif}
 main.info .sec h2{margin-bottom:4px}
 
 /* ══════════ tipografias propias ══════════
-   Baycat queda FUERA: le faltan tildes, enye, signos de apertura y digitos.
-   Nohubotiempo queda FUERA: su licencia dice uso personal, y esto es
-   un portfolio profesional. */
+   unicode-range NO es un adorno: FriendsZ mapea las vocales acentuadas, la enye
+   y los signos de apertura a glifos VACIOS. El navegador creia tenerlos y no
+   caia al respaldo, asi que la O de "DONDE" desaparecia. Aqui cada fuente queda
+   limitada a los caracteres que REALMENTE dibuja, y el resto cae a la siguiente.
+   Los rangos estan calculados glifo a glifo, no a ojo. */
 @font-face{font-family:'Sierra';src:url('assets/fuentes/sierra.woff2') format('woff2');
-  font-weight:400;font-style:normal;font-display:swap}
+  font-weight:400;font-style:normal;font-display:swap;
+  unicode-range:U+0020-007E, U+0080-009F, U+00A1-00AC, U+00AE-00D6, U+00D8-00DD, U+00E0-00EF, U+00F1-00FF, U+0131, U+0152-0153, U+0160-0161, U+0178, U+0192, U+02C6-02C7, U+02D9-02DC, U+03BC, U+2013-2014, U+2018-201A, U+201C-201E, U+2020-2022, U+2026, U+2030, U+2039-203A, U+2044, U+20AC, U+2122, U+2212}
 @font-face{font-family:'Sierra SC';src:url('assets/fuentes/sierra-sc.woff2') format('woff2');
-  font-weight:400;font-style:normal;font-display:swap}
+  font-weight:400;font-style:normal;font-display:swap;
+  unicode-range:U+0020-007E, U+0080-009F, U+00A1-00AC, U+00AE-00D6, U+00D8-00DD, U+00E0-00EF, U+00F1-00FF, U+0131, U+0152-0153, U+0160-0161, U+0178, U+0192, U+02C6-02C7, U+02D9-02DC, U+03BC, U+2013-2014, U+2018-201A, U+201C-201E, U+2020-2022, U+2026, U+2030, U+2039-203A, U+2044, U+20AC, U+2122, U+2212}
 @font-face{font-family:'FriendsZ';src:url('assets/fuentes/friendsz.woff2') format('woff2');
-  font-weight:400;font-style:normal;font-display:swap}
+  font-weight:400;font-style:normal;font-display:swap;
+  unicode-range:U+0020-0021, U+0024, U+0030-0039, U+0041-005A, U+0061-007A}
 @font-face{font-family:'Vainilla';src:url('assets/fuentes/vainilla.woff2') format('woff2');
-  font-weight:400;font-style:normal;font-display:swap}
+  font-weight:400;font-style:normal;font-display:swap;
+  unicode-range:U+0020-0022, U+0024, U+0026-003B, U+003D, U+003F, U+0041-005D, U+005F, U+0061-007B, U+007D, U+00A1-00A2, U+00A5, U+00AD, U+00BF-00DD, U+00E0-00EF, U+00F1-00F6, U+00F8-00FF, U+0131, U+0300-0304, U+0307-0308, U+030A, U+030C, U+0327, U+2013-2014, U+2018-201A, U+201C-201E, U+20A4, U+20AC, U+2212}
+@font-face{font-family:'Tiempo';src:url('assets/fuentes/tiempo.woff2') format('woff2');
+  font-weight:400;font-style:normal;font-display:swap;
+  unicode-range:U+0020-007E, U+00A1-00A5, U+00A7-00A8, U+00AB-00AD, U+00AF-00B0, U+00B4, U+00B6-00B7, U+00BB, U+00BF-00FF, U+0131, U+0152-0153, U+0178, U+02C6, U+02C9, U+02DC, U+0394, U+2010, U+2013-2014, U+2018-201A, U+201C-201E, U+2020, U+2022, U+2026, U+2030, U+2039-203A, U+20AC, U+2212, U+2219}
+@font-face{font-family:'Baycat';src:url('assets/fuentes/baycat.woff2') format('woff2');
+  font-weight:400;font-style:normal;font-display:swap;
+  unicode-range:U+0020, U+003F-005A, U+0061-007A}
 
 main.info .sec h2{
   font-family:'Sierra','Petit Formal Script',cursive;
@@ -918,12 +942,12 @@ main.info .sec h2{
 }
 main.info .sec h2 em{font-style:normal;font-family:inherit}
 main.info .sec h3{
-  font-family:'FriendsZ',cursive;font-size:1.16rem;letter-spacing:.05em;
+  font-family:'FriendsZ','Sierra',cursive;font-size:1.2rem;letter-spacing:.05em;
 }
 main.info .sec p.sec__eyebrow{
   font-family:'Sierra SC','Cinzel',serif;font-size:14px;letter-spacing:.16em;
 }
-main.info .filters button{font-family:'Vainilla',cursive;letter-spacing:.07em;font-size:14px}
+main.info .filters button{font-family:'Vainilla','Sierra',cursive;letter-spacing:.07em;font-size:14px}
 footer .sig{font-family:'Sierra',cursive;font-size:1.9rem}
 
 /* ══════════ la hoja, con su borde deckle ══════════
@@ -934,16 +958,64 @@ main.info .sec::before{
   background:none;
   filter:none;
   border-style:solid;
-  border-width:clamp(20px,3.4vw,42px);
-  border-image:url('assets/hoja.webp?v=1') 132 fill round;
+  /* el recorte (132px de la imagen) debe caber en el grosor del borde;
+     si no, el deckle se comprime y se ve partido */
+  border-width:clamp(34px,4.4vw,64px);
+  border-image:url('assets/hoja.webp?v=2') 132 fill stretch;
   box-shadow:0 24px 50px rgba(0,0,0,.55), 0 4px 14px rgba(0,0,0,.3);
   inset:0;
 }
 footer::before{
   background:none;filter:none;
-  border-style:solid;border-width:clamp(18px,3vw,36px);
-  border-image:url('assets/hoja.webp?v=1') 132 fill round;
+  border-style:solid;border-width:clamp(30px,3.6vw,54px);
+  border-image:url('assets/hoja.webp?v=2') 132 fill stretch;
   box-shadow:0 18px 40px rgba(0,0,0,.5);
+}
+
+/* el resto de voces: Tiempo para lo destacado, Baycat para los pies de foto */
+main.info .sec__lede{font-family:'Tiempo','EB Garamond',Georgia,serif;font-size:clamp(1.1rem,2vw,1.34rem)}
+main.info .sec strong{font-family:'Tiempo','EB Garamond',serif;font-weight:400}
+.tile__cap{font-family:'Baycat','Sierra',cursive;letter-spacing:.02em}
+main.info .card h3{font-family:'FriendsZ','Sierra',cursive}
+footer .studio{font-family:'Tiempo','EB Garamond',serif}
+
+/* ══════════ tocadiscos ══════════ */
+.toca{
+  position:fixed; left:max(14px, env(safe-area-inset-left));
+  bottom:max(14px, env(safe-area-inset-bottom));
+  width:88px; height:auto; padding:0; border:0; background:none;
+  z-index:88; cursor:pointer; line-height:0;
+  filter:drop-shadow(0 8px 18px rgba(0,0,0,.6)) drop-shadow(0 0 20px rgba(226,190,110,.35));
+  transition:transform .3s cubic-bezier(.2,.9,.25,1), filter .35s;
+}
+.toca img{width:100%;height:auto;max-width:none;display:block}
+.toca:hover,.toca:focus-visible{transform:translateY(-4px) scale(1.05);
+  filter:drop-shadow(0 12px 24px rgba(0,0,0,.65)) drop-shadow(0 0 34px rgba(255,220,140,.65))}
+.toca:focus-visible{outline:2px solid var(--gold-lit);outline-offset:6px;border-radius:8px}
+.toca:active{transform:translateY(-1px) scale(.99)}
+
+/* ondas saliendo de la bocina, solo mientras suena */
+.toca__ondas{position:absolute;left:16%;top:14%;width:0;height:0;pointer-events:none}
+.toca__ondas i{
+  position:absolute;left:0;top:0;width:26px;height:26px;margin:-13px 0 0 -13px;
+  border:1.5px solid rgba(240,215,150,.85);border-radius:50%;
+  opacity:0;transform:scale(.3);
+}
+.toca.sonando .toca__ondas i{animation:onda 2.4s ease-out infinite}
+.toca.sonando .toca__ondas i:nth-child(2){animation-delay:.8s}
+.toca.sonando .toca__ondas i:nth-child(3){animation-delay:1.6s}
+@keyframes onda{
+  0%  {opacity:0;transform:scale(.3)}
+  18% {opacity:.85}
+  100%{opacity:0;transform:scale(3.4)}
+}
+.toca.sonando{ animation:tocaLate 3.4s ease-in-out infinite }
+@keyframes tocaLate{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-3px)} }
+
+@media(max-width:700px){ .toca{width:64px} }
+@media (prefers-reduced-motion:reduce){
+  .toca.sonando{animation:none}
+  .toca.sonando .toca__ondas i{animation:none;opacity:.5;transform:scale(1.6)}
 }
 </style>
 
@@ -1052,6 +1124,13 @@ footer::before{
 
 <div class="film" aria-hidden="true"></div>
 <div class="glints" id="glints" aria-hidden="true"></div>
+<button class="toca" id="toca" aria-label="Poner musica" aria-pressed="false">
+  <img src="assets/tocadisco.webp?v=1" alt="" aria-hidden="true">
+  <span class="toca__ondas" aria-hidden="true"><i></i><i></i><i></i></span>
+</button>
+<!-- preload=none: son 1.7 MB, no se bajan hasta que alguien toca el boton -->
+<audio id="son" src="assets/musica.mp3" preload="none" loop></audio>
+
 <a class="wa" href="https://wa.me/message/JVL5VHXXXCPQJ1" target="_blank" rel="noopener noreferrer"
    aria-label="Agendar por WhatsApp">
   <svg viewBox="0 0 32 32" aria-hidden="true">
@@ -1294,14 +1373,6 @@ footer::before{
         <h3>TikTok</h3>
         <p><a class="ig-link" style="margin-top:8px" href="https://www.tiktok.com/@inktensa.daff"
               target="_blank" rel="noopener noreferrer">@inktensa.daff</a></p>
-      </div>
-      <div class="card">
-        <h3>Correo</h3>
-        <p><span class="fill">[tu correo — completar]</span></p>
-      </div>
-      <div class="card">
-        <h3>Dónde estoy</h3>
-        <p><span class="fill">[ciudad y estudio — completar]</span></p>
       </div>
     </div>
   </section>
@@ -1596,6 +1667,27 @@ document.addEventListener('click',function(e){
       if(t<1) requestAnimationFrame(paso);
     })(t0);
   });
+})();
+
+/* ────────── tocadiscos ────────── */
+(function(){
+  var b=$('toca'), a=$('son');
+  if(!b||!a) return;
+  a.volume=0.55;
+  function pinta(on){
+    b.classList.toggle('sonando',on);
+    b.setAttribute('aria-pressed',on?'true':'false');
+    b.setAttribute('aria-label',on?'Quitar la musica':'Poner musica');
+  }
+  b.addEventListener('click',function(){
+    if(a.paused){
+      /* el navegador solo deja sonar tras un gesto, y esto lo es */
+      a.play().then(function(){ pinta(true); })
+              .catch(function(){ pinta(false); });   /* si lo bloquea, no mentimos con el icono */
+    } else { a.pause(); pinta(false); }
+  });
+  a.addEventListener('pause',function(){ pinta(false); });
+  a.addEventListener('play', function(){ pinta(true); });
 })();
 
 /* ────────── polvo de hadas ────────── */
