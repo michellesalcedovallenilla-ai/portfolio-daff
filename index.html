@@ -241,8 +241,6 @@ html{ scrollbar-width:thin; scrollbar-color:#c9922e rgba(12,9,4,.55); }
 /* the Rabbit crossing the clearing */
 #r1{top:46%;left:0;height:60.5vh;transform-origin:50% 50%;opacity:0}
 /* the Rabbit falling ahead of you */
-#r2{left:62%;top:0;height:46vh;opacity:0}   /* su cuerpo es el 62% del marco: 46vh -> 28vh reales */   /* driven by transform, never by `top` */
-#r2>img{filter:blur(.9px)}
 
 /* Alice, falling */
 .alice{
@@ -660,7 +658,6 @@ main.info h2,main.info h3,main.info p,main.info li,main.info .sec__eyebrow{
   /* al recuperar la proporcion (2.1) las figuras vuelven a ser anchas:
      a 60.5vh el conejo medía 723px de ancho en una pantalla de 390 */
   #r1{height:44vh}
-  #r2{left:auto;right:2vw;height:30vh}
   .beat#b-three{left:8%!important;width:84vw}
 
 }
@@ -689,7 +686,7 @@ main.info h2,main.info h3,main.info p,main.info li,main.info .sec__eyebrow{
   .rail{display:none}
   .lift{opacity:.5}
   .cast{position:absolute;height:100%}
-  .alice,#r1,#r2{transition:none!important}
+  .alice,#r1{transition:none!important}
   .copy{position:absolute;height:100%}
   .beat{opacity:1!important;transform:translateX(-50%)!important}
   .plaque-wrap{opacity:1;visibility:visible;pointer-events:auto}
@@ -1128,8 +1125,9 @@ footer .studio{font-family:'Tiempo','EB Garamond',serif}
   <img src="assets/tocadisco.webp?v=1" alt="" aria-hidden="true">
   <span class="toca__ondas" aria-hidden="true"><i></i><i></i><i></i></span>
 </button>
-<!-- preload=none: son 1.7 MB, no se bajan hasta que alguien toca el boton -->
-<audio id="son" src="assets/musica.mp3" preload="none" loop></audio>
+<!-- metadata, no none: son 1.7 MB de audio que no se bajan hasta tocarlo,
+     pero sin la cabecera un VBR puede empezar donde le parezca -->
+<audio id="son" src="assets/musica.mp3?v=2" preload="metadata" loop></audio>
 
 <a class="wa" href="https://wa.me/message/JVL5VHXXXCPQJ1" target="_blank" rel="noopener noreferrer"
    aria-label="Agendar por WhatsApp">
@@ -1168,7 +1166,6 @@ footer .studio{font-family:'Tiempo','EB Garamond',serif}
   <span class="fig alice" id="a9"><img data-base="assets/alice-fall-9" alt="" decoding="async"></span>
   <span class="fig alice" id="a10"><img data-base="assets/alice-fall-10" alt="" decoding="async"></span>
 
-  <span class="fig" id="r2"><img data-base="assets/rabbit-2" alt="" decoding="async"></span>
 
 </div>
 
@@ -1436,7 +1433,7 @@ var REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* ────────── elements ────────── */
 var $ = function(id){ return document.getElementById(id); };
 var plate=$('plate'), plateImg=$('plateImg'), driver=$('driver'), root=document.documentElement;
-var r1=$('r1'), r2=$('r2');
+var r1=$('r1');
 var alices={}; for(var _i=1;_i<=10;_i++) alices['a'+_i]=$('a'+_i);
 var apie=$('apie'), saludo=$('saludo');
 var FRAMES=['a1','a2','a3','a4','a5','a6','a7','a8','a9','a10'];
@@ -1681,11 +1678,16 @@ document.addEventListener('click',function(e){
   }
   b.addEventListener('click',function(){
     if(a.paused){
+      /* Siempre desde el principio. Sin esto se reanudaba donde se quedo,
+         que es por lo que parecia sonar solo el ultimo minuto. */
+      try{ a.currentTime=0; }catch(e){}
       /* el navegador solo deja sonar tras un gesto, y esto lo es */
       a.play().then(function(){ pinta(true); })
               .catch(function(){ pinta(false); });   /* si lo bloquea, no mentimos con el icono */
     } else { a.pause(); pinta(false); }
   });
+  /* si la cabecera llega tarde, reencuadrar al inicio */
+  a.addEventListener('loadedmetadata',function(){ if(a.paused && a.currentTime>0.1) a.currentTime=0; });
   a.addEventListener('pause',function(){ pinta(false); });
   a.addEventListener('play', function(){ pinta(true); });
 })();
@@ -2012,10 +2014,13 @@ function frame(){
   var aliveA = !isFloating && s>0.30;
   var aOp = seg(s,0.30,0.40);
   if(aliveA){
-    /* biased left the whole way down so nothing she does covers the copy */
-    /* -34vw solo tiene sentido cuando el texto se corre a la derecha,
-       y esa regla es min-width:1200px. Debajo, Alice se salia de pantalla. */
-    var ax = (ANCHO.matches ? -34 : -18) + 4*Math.sin(5.4*s+0.6);   /* centro ~16vw: cae pegada a la izquierda */
+    /* Arranca CENTRADA y describe una curva hacia la izquierda segun cae.
+       smoothstep: sale recta del borde y va abriendo la curva, en vez de
+       irse de lado desde el primer fotograma. */
+    var tc = seg(s,0.30,0.88);
+    var curva = tc*tc*(3-2*tc);
+    var destino = ANCHO.matches ? -34 : -18;   /* debajo de 1200px el texto no se corre */
+    var ax = destino*curva + 3*Math.sin(5.4*s+0.6);
     var ar = 14*Math.sin(5.4*s+1.4);
     var hgt = 12 + 34*seg(s,0.30,0.90);
     var ex = 0;
@@ -2041,15 +2046,6 @@ function frame(){
   }
 
 
-  /* ── the Rabbit falls ahead of you ── */
-  var v2=seg(s,0.62,0.82);
-  var r2o = (s>0.62&&s<0.82) ? 0.94*Math.sin(Math.PI*v2) : 0;
-  r2.style.opacity=r2o.toFixed(3);
-  if(r2o>0.005){
-    r2.style.visibility='visible';
-    /* transform, not `top` — `top` relayouts a filtered 1371x1019 PNG every frame */
-    r2.style.transform='translate3d(0,'+(-24+148*v2).toFixed(2)+'vh,0)';
-  } else { r2.style.visibility='hidden'; }
 
   /* ── hotspot ignition ── */
   /* On a portrait phone the pan only covers 42% of the plate, so plate rows 42–58%
