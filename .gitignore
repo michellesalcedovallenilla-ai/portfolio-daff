@@ -52,3 +52,7 @@ _*.js
 # Fuentes: los ZIP originales se quedan en local; en el sitio van los .woff2
 /_fuentes/
 /assets/_hoja-original.png
+
+# Archivos fuente comprimidos y copias de seguridad
+*.zip
+*.bak

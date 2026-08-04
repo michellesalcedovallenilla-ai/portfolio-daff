@@ -816,6 +816,18 @@ main.info .sec, main.info .sec p, main.info .sec li{ color:#4a3617 }
 main.info h2,main.info h3,main.info p,main.info li,main.info .sec__eyebrow{
   text-shadow:none;                         /* el halo oscuro era para fondo oscuro */
 }
+@font-face{font-family:'Lokka';src:url('assets/fuentes/lokka.woff2') format('woff2');
+  font-weight:400;font-style:normal;font-display:swap;
+  unicode-range:U+0020-0022, U+0027, U+002C, U+002E, U+0030-003B, U+003F, U+0041-005A, U+0061-007A, U+2018-201A, U+201C-201E}
+@font-face{font-family:'Denrito';src:url('assets/fuentes/denrito.woff2') format('woff2');
+  font-weight:400;font-style:normal;font-display:swap;
+  unicode-range:U+0020-005A, U+005C, U+005E, U+0060-007A, U+007E, U+00A9, U+00C1, U+2010}
+@font-face{font-family:'Cartunia';src:url('assets/fuentes/cartunia.ttf') format('truetype');
+  font-weight:400;font-style:normal;font-display:swap;
+  unicode-range:U+0020-007E, U+0080-009F, U+00A1-00FF, U+0131, U+0300-0304, U+0307-0308, U+030A, U+030C, U+0327, U+0401, U+0410-044F, U+0451, U+2013-2014, U+2018-201A, U+201C-201E, U+2020-2022, U+2026, U+2039-203A, U+2044, U+20A3-20A4, U+20A7, U+20AC, U+2116, U+2122, U+2202, U+2206, U+220F, U+2211-2212, U+2215, U+2219-221A, U+221E, U+222B, U+2248, U+2264-2265, U+FB01-FB02}
+/* Cartunia va SIN convertir a woff2 a proposito: su licencia exige que el
+   fichero se mantenga intacto. Pesa 136KB en vez de ~50KB. */
+
 main.info .sec h2{ color:#33240d; font-weight:400 }
 main.info .sec h2 em{ color:#6d4a12 }
 main.info .sec h3{ color:#3a2a10 }
@@ -932,6 +944,18 @@ main.info .sec h2{margin-bottom:4px}
 @font-face{font-family:'Baycat';src:url('assets/fuentes/baycat.woff2') format('woff2');
   font-weight:400;font-style:normal;font-display:swap;
   unicode-range:U+0020, U+003F-005A, U+0061-007A}
+@font-face{font-family:'Moons of Jupiter, Europa';src:url('assets/fuentes/moons-europa.woff2') format('woff2');
+  font-weight:400;font-style:normal;font-display:swap;
+  unicode-range:U+0020-007E, U+00A0-00FF, U+0131, U+02C6-02C7, U+02C9, U+02D8-02DD, U+037E, U+2013-2014, U+2018-201A, U+201C-201E, U+2020-2022, U+2026, U+2039-203A, U+2044, U+20A3-20A4, U+20A7, U+20AC, U+2116, U+2122, U+2202, U+2206, U+220F, U+2211-2212, U+2215, U+2219-221A, U+221E, U+222B, U+2248, U+2264-2265, U+F001-F002, U+FB01-FB02}
+@font-face{font-family:'Moons of Jupiter, Io';src:url('assets/fuentes/moons-io.woff2') format('woff2');
+  font-weight:400;font-style:normal;font-display:swap;
+  unicode-range:U+0020-007E, U+00A0-00FF, U+0131, U+02C6-02C7, U+02C9, U+02D8-02DD, U+037E, U+2013-2014, U+2018-201A, U+201C-201E, U+2020-2022, U+2026, U+2039-203A, U+2044, U+20A3-20A4, U+20A7, U+20AC, U+2116, U+2122, U+2202, U+2206, U+220F, U+2211-2212, U+2215, U+2219-221A, U+221E, U+222B, U+2248, U+2264-2265, U+F001-F002, U+FB01-FB02}
+@font-face{font-family:'Pizza is my FAVORITE';src:url('assets/fuentes/pizza.woff2') format('woff2');
+  font-weight:400;font-style:normal;font-display:swap;
+  unicode-range:U+0020-007E, U+00A0, U+00A3, U+00A8, U+00AD, U+00AF, U+00B4, U+00B8, U+00BF-00CF, U+00D1-00D6, U+00D8-00DD, U+00E0-00EF, U+00F1-00F6, U+00F8-00FD, U+00FF-0131, U+0134-0137, U+0139-013D, U+0140-0149, U+014C-0166, U+0168-017E, U+01FC-01FF, U+0218-021B, U+02C6-02C7, U+02C9, U+02D8-02DD, U+1E80-1E85, U+1EF2-1EF3, U+2018-2019, U+201C-201E, U+2026, U+20AC, U+F6C1-F6C3}
+@font-face{font-family:'PWJunescript';src:url('assets/fuentes/pwjunescript.woff2') format('woff2');
+  font-weight:400;font-style:normal;font-display:swap;
+  unicode-range:U+0020-0021, U+0027, U+002C, U+002E, U+0030-0039, U+0041-005A, U+0061-007A, U+00E0, U+00E2, U+00E4, U+00E6, U+00E8-00EB, U+00EE-00EF, U+00F4, U+00F9, U+00FB}
 
 main.info .sec h2{
   font-family:'Sierra','Petit Formal Script',cursive;
@@ -958,14 +982,14 @@ main.info .sec::before{
   /* el recorte (132px de la imagen) debe caber en el grosor del borde;
      si no, el deckle se comprime y se ve partido */
   border-width:clamp(34px,4.4vw,64px);
-  border-image:url('assets/hoja.webp?v=2') 132 fill stretch;
+  border-image:url('assets/hoja-original.webp') 150 fill stretch;
   box-shadow:0 24px 50px rgba(0,0,0,.55), 0 4px 14px rgba(0,0,0,.3);
   inset:0;
 }
 footer::before{
   background:none;filter:none;
   border-style:solid;border-width:clamp(30px,3.6vw,54px);
-  border-image:url('assets/hoja.webp?v=2') 132 fill stretch;
+  border-image:url('assets/hoja-original.webp') 150 fill stretch;
   box-shadow:0 18px 40px rgba(0,0,0,.5);
 }
 
@@ -978,8 +1002,8 @@ footer .studio{font-family:'Tiempo','EB Garamond',serif}
 
 /* ══════════ tocadiscos ══════════ */
 .toca{
-  position:fixed; left:max(14px, env(safe-area-inset-left));
-  bottom:max(14px, env(safe-area-inset-bottom));
+  position:fixed; right:max(14px, env(safe-area-inset-right));
+  top:max(12px, env(safe-area-inset-top));
   width:88px; height:auto; padding:0; border:0; background:none;
   z-index:88; cursor:pointer; line-height:0;
   filter:drop-shadow(0 8px 18px rgba(0,0,0,.6)) drop-shadow(0 0 20px rgba(226,190,110,.35));
@@ -1014,6 +1038,88 @@ footer .studio{font-family:'Tiempo','EB Garamond',serif}
   .toca.sonando{animation:none}
   .toca.sonando .toca__ondas i{animation:none;opacity:.5;transform:scale(1.6)}
 }
+
+/* Cartunia es la unica del lote nuevo con espanol completo (335 glifos):
+   por eso lleva los subtitulos, donde hay tildes y enyes. */
+main.info .sec h3, main.info .card h3{font-family:'Cartunia','Sierra',cursive;font-size:1.14rem;letter-spacing:.01em}
+main.info .filters button{font-family:'Lokka','Vainilla','Sierra',cursive;letter-spacing:.09em}
+.tile__cap{font-family:'Denrito','Baycat','Sierra',cursive;letter-spacing:.03em;font-size:13px}
+
+/* ══════════ nuevas fuentes de los zips ══════════
+   Europa para la esfera del reloj y la navegacion;
+   Io para los titulos de curiosidades;
+   Pizza para etiquetas, leyendas y tips;
+   PWJunescript solo para etiquetas cortas cuyos caracteres dibuja. */
+.dial__item{font-family:'Moons of Jupiter, Europa','Cinzel',serif}
+.dial__item .num{font-family:'PWJunescript','Moons of Jupiter, Europa','Cinzel',serif;letter-spacing:.02em}
+.watch-btn__label{font-family:'Moons of Jupiter, Europa','Cinzel',serif}
+.dial__caption{font-family:'Moons of Jupiter, Europa','Cinzel',serif}
+.hs__panel h4,.hs-card h4{font-family:'Moons of Jupiter, Io','Cinzel',serif}
+.nojs-nav a{font-family:'Moons of Jupiter, Europa','Cinzel',serif}
+.rail__time{font-family:'Moons of Jupiter, Europa','Cinzel',serif;font-size:11px;letter-spacing:.12em}
+main.info .filters button{font-family:'Pizza is my FAVORITE','Lokka','Vainilla','Sierra',cursive;letter-spacing:.04em;font-size:13px}
+.tile__cap,.lb__cap{font-family:'Pizza is my FAVORITE','Denrito','Baycat','Sierra',cursive}
+.lb__cap{font-style:normal}
+.ba__slot .tag{font-family:'PWJunescript','Cinzel',serif;font-size:10px;letter-spacing:.04em}
+.tile__ph span{font-family:'PWJunescript','Cinzel',serif;font-size:10px;letter-spacing:.08em}
+footer .sig{font-family:'Pizza is my FAVORITE','Sierra',cursive}
+
+/* ══════════ todo lo del pergamino: legible primero, a mano después ══════════ */
+main.info .sec,
+main.info .sec p,
+main.info .sec li,
+main.info .sec__lede,
+main.info .ig-link,
+main.info .sec strong,
+footer .studio,
+footer nav a{
+  font-family:'EB Garamond','Cormorant Garamond',Georgia,serif;
+  font-size:1.06rem;
+  line-height:1.75;
+  color:#3a2a10;
+}
+main.info .sec h2{font-family:'Sierra','Petit Formal Script',cursive;font-size:clamp(2.2rem,4.8vw,3.6rem);line-height:1.18}
+main.info .sec h3,
+main.info .card h3{font-family:'Cartunia','Sierra',cursive;font-size:1.18rem}
+main.info .sec p.sec__eyebrow{font-family:'Cinzel','Sierra SC',serif;font-size:12px;letter-spacing:.16em}
+main.info .filters button{font-family:'Pizza is my FAVORITE','FriendsZ','Sierra',cursive;font-size:14px;letter-spacing:.04em}
+.tile__cap,.lb__cap{font-family:'Pizza is my FAVORITE','Denrito','Baycat','Sierra',cursive;font-size:14px}
+.tip b{font-family:'Pizza is my FAVORITE','Cartunia','Sierra',cursive;font-size:15px}
+footer .sig{font-family:'Pizza is my FAVORITE','Sierra',cursive;font-size:1.9rem}
+
+/* ══════════ cajitas de consejo, estilo videojuego ══════════ */
+.tips{
+  position:fixed; z-index:87;
+  right:max(16px, env(safe-area-inset-right));
+  bottom:calc(max(16px, env(safe-area-inset-bottom)) + 74px);
+  width:min(300px, calc(100vw - 32px));
+  display:flex; flex-direction:column; gap:9px; align-items:flex-end;
+  pointer-events:none;
+}
+.tip{
+  position:relative; width:100%;
+  padding:12px 14px 13px;
+  background:url('assets/hoja.webp?v=2') center/cover, #efe0bf;
+  color:#3f2d11; font-family:'EB Garamond',Georgia,serif; font-size:14.5px; line-height:1.5;
+  border:1px solid rgba(122,90,40,.5);
+  box-shadow:0 8px 20px rgba(0,0,0,.5), inset 0 0 26px rgba(150,116,58,.22);
+  opacity:0; transform:translateY(10px) scale(.96);
+  transition:opacity .34s ease, transform .34s cubic-bezier(.2,.9,.25,1);
+}
+.tip b{display:block;font-family:'Pizza is my FAVORITE','Cartunia','Sierra',cursive;font-size:15px;
+  color:#6b4c12;margin-bottom:4px;letter-spacing:.01em}
+.tip__ir{display:block;margin-top:8px;color:#674711;font-style:italic}
+.tips.abierto .tip{opacity:1;transform:translateY(0) scale(1)}
+.tips.abierto .tip:nth-child(2){transition-delay:.13s}
+.tips.abierto .tip:nth-child(3){transition-delay:.26s}
+/* la colita apunta al boton */
+.tip:last-child::after{
+  content:"";position:absolute;right:20px;bottom:-7px;width:12px;height:12px;
+  background:#e8d6b0;border-right:1px solid rgba(122,90,40,.5);
+  border-bottom:1px solid rgba(122,90,40,.5);transform:rotate(45deg);
+}
+@media(max-width:520px){ .tips{width:calc(100vw - 28px)} .tip{font-size:13.5px} }
+@media (prefers-reduced-motion:reduce){ .tip{transition:none} }
 </style>
 
 <noscript><style>
@@ -1129,6 +1235,15 @@ footer .studio{font-family:'Tiempo','EB Garamond',serif}
      pero sin la cabecera un VBR puede empezar donde le parezca -->
 <audio id="son" src="assets/musica.mp3?v=2" preload="metadata" loop></audio>
 
+<div class="tips" id="tips" aria-live="polite">
+  <div class="tip"><b>1 · Primero cotizamos</b>Mándame una referencia —foto, captura o boceto—,
+    la zona del cuerpo y el tamaño aproximado en centímetros.</div>
+  <div class="tip"><b>2 · A color o en grises</b>Dime cuál prefieres. Soy especialista en botánica:
+    flores, aves e insectos.</div>
+  <div class="tip"><b>3 · La agenda</b>Abre el domingo 2 de agosto a las 12:00 h, para fechas de
+    octubre. La seña es de $20.000 y se descuenta del total.
+    <span class="tip__ir">Escríbeme por WhatsApp →</span></div>
+</div>
 <a class="wa" href="https://wa.me/message/JVL5VHXXXCPQJ1" target="_blank" rel="noopener noreferrer"
    aria-label="Agendar por WhatsApp">
   <svg viewBox="0 0 32 32" aria-hidden="true">
@@ -1664,6 +1779,35 @@ document.addEventListener('click',function(e){
       if(t<1) requestAnimationFrame(paso);
     })(t0);
   });
+})();
+
+/* ────────── cajitas de consejo del WhatsApp ────────── */
+(function(){
+  var wa=document.querySelector('.wa'), caja=$('tips');
+  if(!wa||!caja) return;
+  var TACTIL = matchMedia('(hover:none)').matches || matchMedia('(pointer:coarse)').matches;
+  var abierto=false, temp=null;
+  function abrir(){ clearTimeout(temp); abierto=true; caja.classList.add('abierto'); }
+  function cerrar(){ abierto=false; caja.classList.remove('abierto'); }
+
+  if(TACTIL){
+    /* en tactil el primer toque ENSENA los consejos; el segundo abre WhatsApp,
+       para no perder el enlace ni obligar a leer */
+    wa.addEventListener('click',function(e){
+      if(!abierto){ e.preventDefault(); abrir(); temp=setTimeout(cerrar,9000); }
+    });
+    document.addEventListener('click',function(e){
+      if(abierto && !wa.contains(e.target) && !caja.contains(e.target)) cerrar();
+    });
+  }else{
+    wa.addEventListener('mouseenter',abrir);
+    wa.addEventListener('focus',abrir);
+    wa.addEventListener('mouseleave',function(){ temp=setTimeout(cerrar,420); });
+    wa.addEventListener('blur',cerrar);
+    caja.addEventListener('mouseenter',function(){ clearTimeout(temp); });
+    caja.addEventListener('mouseleave',cerrar);
+  }
+  addEventListener('keydown',function(e){ if(e.key==='Escape') cerrar(); });
 })();
 
 /* ────────── tocadiscos ────────── */
